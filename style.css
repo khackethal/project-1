@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  color: white;
+  background-color: black;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid grey;
+  width: 600px;
+  height: 600px;
+  flex-wrap: wrap;
+  background-color: white;
+  padding: 5px;
+  margin: 20px;
+}
+
+
+.wall {
+  background-color: grey;
+  border: 1px solid white
+}
+
+.portal {
+  color: blue
+}
+
+.walkway {
+  color: darkgrey
+}
+
+.specialfood {
+  background-color: red;
+}
