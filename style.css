@@ -32,13 +32,27 @@ body {
 }
 
 .portal {
-  color: blue
+  background-color: blue
 }
 
 .walkway {
-  color: darkgrey
+  color: darkgrey;
+  /* background-color: pink; */
 }
 
 .specialfood {
   background-color: red;
+  border-radius: 50%
+}
+
+.food {
+ background-color: beige;
+ border: 1px solid brown;
+ border-radius: 50%
+}
+
+.pacman {
+  background-color: yellow;
+  border: 2px solid orange;
+  border-radius: 50%
 }

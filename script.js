@@ -6,6 +6,11 @@ const width = 18
 
 //Create an array of all my cells
 const cells = []
+const walkway = []
+let points = 0
+let lives = 3
+
+let pacman = 0
 
 for (let index = 0; index < width ** 2; index++) {
   
@@ -21,7 +26,6 @@ for (let index = 0; index < width ** 2; index++) {
   cells.push(div)
 }
 
-console.log(cells)
 
 //Looping through the array to build the grid- I will bash this into a function later
 
@@ -56,26 +60,120 @@ function buildGridLevel1 () {
     //Might as well add the portal calls to the portals - adding colour for now to check it's working ok
     } else if (index === 144 || index === 161) {
       cells[index].classList.add('portal')
-      // and have all other cells as walkway - adding color for now to check it's working ok 
-    } else {
-      cells[index].classList.add('walkway')
     }
-
+    else if (index === 37 || index === 52 || index === 271 || index === 286) {
+      cells[index].classList.add('specialfood')
+    }
+    // and have all other cells as walkway - making an array for the ghosts 
+    else {
+      cells[index].classList.add('walkway')
+      walkway.push(cells[index])
+    }
   }) 
   addFood()
 
 }
 
 buildGridLevel1()
+// console.log(walkway)
+//the ghosts will loop though walkway and check they're getting closer to PACMAN, whilst PACMAN runs on the cells array
 
 function addFood() {
 
-  cells.forEach((cell, index) => {
+  walkway.forEach((cell, index) => {
 
-    if (index === 37 || index === 52 || index === 271 || index === 286) {
-      cells[index].classList.add('specialfood')
+    walkway[index].innerHTML = index
+
+    if (index < 38 || index > 77 ) {
+      walkway[index].classList.add('food')
     }
 
   })
-
 }
+
+
+//Moving PACMAN on the grid
+pacman = ((width * (width - 1) - 2))
+cells[pacman].classList.add('pacman')
+
+// pacman = walkway.length - 1
+// walkway[pacman].classList.add('pacman')
+
+// ? Moving harry based on the keystrokes
+document.addEventListener('keydown', (event) => {
+  // ? Get the keyboard character typed from event.key
+  const key = event.key
+
+  //FIRST STEP MOVING ON FULL GRID AAAND solved wall problem boom
+
+  //MOVING DOWN
+
+  if (key === 'ArrowDown' && !(pacman > (width ** 2) - width - 2)) {
+    cells[pacman].classList.remove('pacman')
+    pacman += width 
+    if (cells[pacman].classList.contains('wall')) {
+      pacman -= width
+      cells[pacman].classList.add('pacman')
+    }
+    else {
+      cells[pacman].classList.add('pacman')
+    }
+    checkCells()
+
+  //LEFT
+  } else if (key === 'ArrowLeft' && (!(pacman % width === 0) || cells[pacman].classList.contains('portal')) ){
+    cells[pacman].classList.remove('pacman')
+    pacman -= 1
+    if (cells[pacman].classList.contains('wall')) {
+      pacman += 1
+      cells[pacman].classList.add('pacman')
+    }
+    else {
+      cells[pacman].classList.add('pacman')
+    }
+    checkCells()
+
+
+  // RIGHT
+  } else if (key === 'ArrowRight' && !(pacman % width === width - 2)) {
+    cells[pacman].classList.remove('pacman')
+    pacman += 1
+    if (cells[pacman].classList.contains('wall')) {
+      pacman -= 1
+      cells[pacman].classList.add('pacman')
+    }
+    else {
+      cells[pacman].classList.add('pacman')
+    }
+    checkCells()
+
+  // UP
+  } else if (key === 'ArrowUp' && !(pacman < width)) {
+    cells[pacman].classList.remove('pacman')
+    pacman -= width
+    if (cells[pacman].classList.contains('wall')) {
+      pacman += width
+      cells[pacman].classList.add('pacman')
+    }
+    else {
+      cells[pacman].classList.add('pacman')
+    }
+    checkCells()
+  }
+})
+
+
+// FUNCTION TO CHECK CELL CONTENT EVERY TIME PACMAN MOVES AND AMEND POINTS/ TRIGGER OTHER FUNCTIONS 
+function checkCells() {
+  if ((cells[pacman].classList.contains('food'))) {
+    points += 10
+    cells[pacman].classList.remove('food')
+  }
+  else if ((cells[pacman].classList.contains('specialfood'))) {
+    points += 50
+    cells[pacman].classList.remove('specialfood')
+  }
+  console.log(points)
+}
+
+
