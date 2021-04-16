@@ -32,7 +32,7 @@ body {
 }
 
 .portal {
-  background-color: blue
+  background-color: lightblue;
 }
 
 .walkway {
@@ -41,18 +41,46 @@ body {
 }
 
 .specialfood {
-  background-color: red;
+  background-color: #C4A484;
+  border: 1px solid brown;
+  border-radius: 50%
+  color: darkgrey;
   border-radius: 50%
 }
 
 .food {
- background-color: beige;
- border: 1px solid brown;
- border-radius: 50%
+  background-color: beige;
+  border: 1px solid brown;
+  border-radius: 50%
 }
 
 .pacman {
   background-color: yellow;
-  border: 2px solid orange;
+  border: 2px solid black;
   border-radius: 50%
 }
+
+.ghost1 {
+  background-image: url('https://i.imgur.com/I058VZS.png');
+  background-size: cover;
+  border-radius: 50%
+}
+
+.ghost2 {
+  background-image: url('https://i.imgur.com/EOtNCNH.png');
+  background-size: cover;
+  border-radius: 50%
+} 
+
+.ghost3 {
+  background-image: url('https://i.imgur.com/T9wFHOG.png');
+  background-size: cover;
+  border-radius: 50%
+}
+
+.ghost4 {
+  background-image: url('https://i.imgur.com/fFaNyEZ.png');
+  background-size: cover;
+  border-radius: 50%
+}
+

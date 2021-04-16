@@ -7,13 +7,30 @@ const width = 18
 //Create an array of all my cells
 const cells = []
 const walkway = []
-let points = 0
-let lives = 3
+const foodArr = []
+
+let food = 0 // will be set to correct number when build function runs
+let specialFood = 4 // hardcoded for now as there's always 4
 
 let pacman = 0
+let lives = 3
+const liveDIV= document.querySelector('#lives')
+liveDIV.innerHTML = `LIVES LEFT : ${lives}`
+
+let ghost1 
+let ghost2 
+let ghost3 
+let ghost4 
+
+const scoreSpan = document.querySelector('#currentScore')
+let points = 0
+
+const highScoreDIVPM = document.querySelector('#highScore')
+let highScorePM = localStorage.getItem('highScorePM') || 0
+highScoreDIVPM.innerHTML = `Current high score is ${highScorePM}`
+
 
 for (let index = 0; index < width ** 2; index++) {
-  
   const div = document.createElement('div')
   grid.appendChild(div)
 
@@ -27,9 +44,9 @@ for (let index = 0; index < width ** 2; index++) {
 }
 
 
-//Looping through the array to build the grid- I will bash this into a function later
+//Looping through the array to build the grid
 
-function buildGridLevel1 () {
+function buildGridLevel1() {
 
   cells.forEach((cell, index) => {
 
@@ -71,44 +88,55 @@ function buildGridLevel1 () {
     }
   }) 
   addFood()
+  pacman = ((width * (width - 1) - 2))
+  cells[pacman].classList.add('pacman')
+  points = 0
+
+  ghost1 = 115
+  ghost2 = 169
+  ghost3 = 118
+  ghost4 = 172
+  cells[ghost1].classList.add('ghost1')
+  cells[ghost2].classList.add('ghost2')
+  cells[ghost3].classList.add('ghost3')
+  cells[ghost4].classList.add('ghost4')
 
 }
 
 buildGridLevel1()
 // console.log(walkway)
 //the ghosts will loop though walkway and check they're getting closer to PACMAN, whilst PACMAN runs on the cells array
+//should probably count the food
 
 function addFood() {
 
   walkway.forEach((cell, index) => {
 
-    walkway[index].innerHTML = index
-
+    // walkway[index].innerHTML = index
     if (index < 38 || index > 77 ) {
       walkway[index].classList.add('food')
+      foodArr.push(cells[index])
+      food = foodArr.length 
     }
 
   })
 }
 
 
-//Moving PACMAN on the grid
-pacman = ((width * (width - 1) - 2))
-cells[pacman].classList.add('pacman')
+//Moving PACMAN on the grid - moed the adding of him into the build function
+// pacman = ((width * (width - 1) - 2))
+// cells[pacman].classList.add('pacman')
 
-// pacman = walkway.length - 1
-// walkway[pacman].classList.add('pacman')
-
-// ? Moving harry based on the keystrokes
+// Moving harry based on the  arrows
 document.addEventListener('keydown', (event) => {
-  // ? Get the keyboard character typed from event.key
+  // Start GHOSTS
+  moveGhosts()
+  
+  // Get the keyboard character typed from event.key
   const key = event.key
 
-  //FIRST STEP MOVING ON FULL GRID AAAND solved wall problem boom
-
   //MOVING DOWN
-
-  if (key === 'ArrowDown' && !(pacman > (width ** 2) - width - 2)) {
+  if (key === 'ArrowDown' && !(pacman > (width ** 2) - width - 1)) {
     cells[pacman].classList.remove('pacman')
     pacman += width 
     if (cells[pacman].classList.contains('wall')) {
@@ -128,6 +156,11 @@ document.addEventListener('keydown', (event) => {
       pacman += 1
       cells[pacman].classList.add('pacman')
     }
+    else if (cells[pacman].classList.contains('portal')) {
+      cells[pacman].classList.remove('pacman')
+      pacman += 17
+      cells[pacman].classList.add('pacman')
+    }
     else {
       cells[pacman].classList.add('pacman')
     }
@@ -135,11 +168,16 @@ document.addEventListener('keydown', (event) => {
 
 
   // RIGHT
-  } else if (key === 'ArrowRight' && !(pacman % width === width - 2)) {
+  } else if (key === 'ArrowRight' && !(pacman % width === width - 1)) {
     cells[pacman].classList.remove('pacman')
     pacman += 1
     if (cells[pacman].classList.contains('wall')) {
       pacman -= 1
+      cells[pacman].classList.add('pacman')
+    }
+    else if (cells[pacman].classList.contains('portal')) {
+      cells[pacman].classList.remove('pacman')
+      pacman -= 17
       cells[pacman].classList.add('pacman')
     }
     else {
@@ -165,15 +203,97 @@ document.addEventListener('keydown', (event) => {
 
 // FUNCTION TO CHECK CELL CONTENT EVERY TIME PACMAN MOVES AND AMEND POINTS/ TRIGGER OTHER FUNCTIONS 
 function checkCells() {
-  if ((cells[pacman].classList.contains('food'))) {
+  if (cells[pacman].classList.contains('food')) {
     points += 10
     cells[pacman].classList.remove('food')
+    food -= 1
+    points += 10
   }
-  else if ((cells[pacman].classList.contains('specialfood'))) {
+  else if (cells[pacman].classList.contains('specialfood')) {
     points += 50
     cells[pacman].classList.remove('specialfood')
+    // TRIGGER GHOST HUNT
+    specialFood -= 1
+    points += 50
   }
-  console.log(points)
+  else if (cells[pacman].classList.contains('ghost1') ||
+          cells[pacman].classList.contains('ghost2') ||
+          cells[pacman].classList.contains('ghost3') ||
+          cells[pacman].classList.contains('ghost4') ) {
+    lives -= 1 
+    alert(`Whoops. You died`)
+    cells[pacman].classList.remove('pacman')
+    clearInterval(intervalID)
+    cells[ghost1].classList.remove('ghost1')
+    cells[ghost2].classList.remove('ghost2')
+    cells[ghost3].classList.remove('ghost3')
+    cells[ghost4].classList.remove('ghost4')
+    buildGridLevel1()
+    
+  }
+  else if (food === 0 && specialFood === 0) {
+    const compare = points
+    if (compare > highScorePM) {
+      localStorage.setItem('highScorePM', `${compare}`)
+      highScoreDIVPM.innerHTML = `Current High Score: ${compare}`
+    }
+    alert(`🎉 You've eaten all the food ! 🎉 `)
+    cells[pacman].classList.remove('pacman')
+    clearInterval(intervalID)
+    cells[ghost1].classList.remove('ghost1')
+    cells[ghost2].classList.remove('ghost2')
+    cells[ghost3].classList.remove('ghost3')
+    cells[ghost4].classList.remove('ghost4')
+    buildGridLevel1()
+  }
+  scoreSpan.innerHTML = points
 }
 
+
+
+let isPlaying = false
+let intervalID
+
+function moveGhosts() {
+
+  if (isPlaying){
+    return
+  }
+
+  isPlaying = true
+  
+  intervalID = setInterval(() => {
+    
+
+
+    //GHOST 1 TRIES TO MOVE RIGHT AND ONLY MOVES IF CLASS IS NOT WALL
+    cells[ghost1].classList.remove('ghost1')    
+    ghost1 += 1
+    if (cells[ghost1].classList.contains('walkway')) {
+      cells[ghost1].classList.add('ghost1')
+    } else { ghost1 -= 1 //back to start
+            ghost1 -= width //DOWMN
+          if (cells[ghost1].classList.contains('walkway')) {
+              cells[ghost1].classList.add('ghost1')
+              ghost1 -= width //FURTHER DOWN IF IT WORKED
+            } 
+                else {
+                  ghost1 += width //back to start
+                  ghost1 += width // DOWN
+                  if (cells[ghost1].classList.contains('walkway')) {
+                    cells[ghost1].classList.add('ghost1')
+                  } 
+                    else { ghost1 -= width // back to start
+                          ghost1 -= width // left
+                          cells[ghost1].classList.add('ghost1')
+                    }
+                }
+              }
+    
+    console.log(ghost1)
+
+
+    }, 1000)
+ 
+}
 
