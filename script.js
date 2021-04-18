@@ -59,7 +59,8 @@ function buildGridLevel1() {
           index === 72  || index === 89 ||
           index === 90  || (index >= 92 && index <= 105) || index === 107 ||
           index === 108 || index === 114 || index === 119 || index === 125 ||
-          (index >= 126 && index <= 130) || index === 132 || index === 134 || index === 135 || index === 137 || (index >= 139 && index <= 143) ||
+          // (index >= 126 && index <= 130) || index === 132 || index === 134 || index === 135 || index === 137 || (index >= 139 && index <= 143) ||
+          (index >= 126 && index <= 130) || index === 134 || index === 135 || (index >= 139 && index <= 143) ||
           index === 152 || index === 153 ||
           (index >= 162 && index <= 166) || index === 168 || index === 173 || (index >= 175 && index <= 179) ||
           (index >= 180 && index <= 184) || (index >= 186 && index <= 191) || (index >= 193 && index <= 197) ||

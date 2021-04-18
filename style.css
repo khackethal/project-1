@@ -27,8 +27,8 @@ body {
 
 
 .wall {
-  background-color: grey;
-  border: 1px solid white
+  background-color: black;
+  border: 2px solid blue
 }
 
 .portal {
@@ -37,7 +37,7 @@ body {
 
 .walkway {
   color: darkgrey;
-  /* background-color: pink; */
+  /* background-color: black */
 }
 
 .specialfood {
