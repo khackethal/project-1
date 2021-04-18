@@ -84,3 +84,14 @@ body {
   border-radius: 50%
 }
 
+.pink {
+  background-color: pink;
+}
+
+.edibleGHOST {
+  background-image: url('https://i.imgur.com/Lo1iSCH.png');
+  background-size: cover;
+  border-radius: 50%
+
+}
+
