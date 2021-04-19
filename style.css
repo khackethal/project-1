@@ -20,7 +20,7 @@ body {
   width: 600px;
   height: 600px;
   flex-wrap: wrap;
-  background-color: white;
+  background-color: black;
   padding: 5px;
   margin: 20px;
 }
@@ -51,7 +51,7 @@ body {
 .food {
 
   /* background-color: grey; */
-  background-image: radial-gradient(black 10%, transparent 0);
+  background-image: radial-gradient(yellow 10%, transparent 0);
 }
 
 .pacman {

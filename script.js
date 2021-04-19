@@ -35,8 +35,8 @@ for (let index = 0; index < width ** 2; index++) {
   const div = document.createElement('div')
   grid.appendChild(div)
 
-  //number cells
-  div.innerHTML = index
+  //number cells TURNING OF FOR NOW FOR STYLING
+  // div.innerHTML = index
   //correct size
   div.style.width = `${100 / width}%`
   div.style.height = `${100 / width}%`
