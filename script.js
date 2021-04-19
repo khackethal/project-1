@@ -355,6 +355,7 @@ function checkCellsGhosts() {
       cells[ghost2].classList.add('ghost2')
       cells[ghost3].classList.add('ghost3')
       cells[ghost4].classList.add('ghost4')
+      isEdible = false
       isPlaying = false
       isPlaying2 = false
       isPlaying3 = false
