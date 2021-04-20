@@ -42,17 +42,13 @@ body {
 }
 
 .specialfood {
-  /* background-color: yellow; */
   background-color: #C4A484;
-  /* border: 1px solid brown; */
-  border-radius: 50%
-  color: darkgrey;
+  border: 7px solid black;
   border-radius: 50%
 }
 
-.food {
 
-  /* background-color: grey; */
+.food {
   background-image: radial-gradient(yellow 10%, transparent 0);
 }
 
@@ -60,11 +56,11 @@ body {
   background-color: yellow;
   border: 2px solid black;
   border-radius: 50%;
-  /* animation-name: eat;
+  /* clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
+  animation-name: eat;
   animation-duration: 0.7s;
   animation-iteration-count: infinite; */
 }
-
 
 /* .pacman__mouth {
   background: black; 
@@ -83,7 +79,7 @@ body {
   }
   25% {
     clip-path: polygon(100% 60%, 44% 48%, 100% 40%);
-  }
+  /* }
   50% {
     clip-path: polygon(100% 50%, 44% 48%, 100% 50%);
   }
@@ -92,8 +88,8 @@ body {
   }
   100% {
     clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
-  }
-} */
+  } 
+}*/
 
 .ghost1 {
   background-image: url('https://i.imgur.com/I058VZS.png');
@@ -119,9 +115,7 @@ body {
   border-radius: 50%
 }
 
-.pink {
-  background-color: pink;
-}
+
 
 .edibleGHOST1 {
   background-image: url('https://i.imgur.com/Lo1iSCH.png');
