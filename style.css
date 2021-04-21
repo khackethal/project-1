@@ -16,7 +16,6 @@ body {
 .grid {
   display: flex;
   flex-direction: row;
-  /* border: 1px solid grey; */
   width: 600px;
   height: 600px;
   flex-wrap: wrap;
@@ -29,11 +28,11 @@ body {
 .wall {
   background-color: black;
   border: 2px solid blue
+  /* border: 2px solid #3e08d1 */
 }
 
 .portal {
   background-color: black;
-  /* background-color: lightblue; */
 }
 
 .walkway {
@@ -55,94 +54,71 @@ body {
 .pacman {
   background-color: yellow;
   border: 2px solid black;
-  border-radius: 50%;
-  /* clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
-  animation-name: eat;
-  animation-duration: 0.7s;
-  animation-iteration-count: infinite; */
+  border-radius: 50%
 }
 
-/* .pacman__mouth {
-  background: black; 
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
-  animation-name: eat;
-  animation-duration: 0.7s;
-  animation-iteration-count: infinite;
-}
+/* .pacman { animation: changeBgPC 1s infinite; background-size:cover }
+@keyframes changeBgPC{
+    0%,100%  {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
+    25% {background-image: url('https://i.imgur.com/8nuzosO.png');}
+    50% {background-image: url('https://i.imgur.com/eUUKsWL.png');}
+    75% {background-image: url('https://i.imgur.com/8nuzosO.png');}
+} */
 
-@keyframes eat {
-  0% {
-    clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
-  }
-  25% {
-    clip-path: polygon(100% 60%, 44% 48%, 100% 40%);
-  /* }
-  50% {
-    clip-path: polygon(100% 50%, 44% 48%, 100% 50%);
-  }
-  75% {
-    clip-path: polygon(100% 59%, 44% 48%, 100% 35%);
-  }
-  100% {
-    clip-path: polygon(100% 74%, 44% 48%, 100% 21%);
-  } 
-}*/
 
 .ghost1 {
   background-image: url('https://i.imgur.com/I058VZS.png');
-  background-size: cover;
-  border-radius: 50%
+  background-size: cover
 }
 
 .ghost2 {
   background-image: url('https://i.imgur.com/EOtNCNH.png');
-  background-size: cover;
-  border-radius: 50%
+  background-size: cover
 } 
 
 .ghost3 {
   background-image: url('https://i.imgur.com/T9wFHOG.png');
-  background-size: cover;
-  border-radius: 50%
+  background-size: cover
 }
 
 .ghost4 {
   background-image: url('https://i.imgur.com/fFaNyEZ.png');
-  background-size: cover;
-  border-radius: 50%
+  background-size: cover
 }
 
-
-
-.edibleGHOST1 {
-  background-image: url('https://i.imgur.com/Lo1iSCH.png');
-  background-size: cover;
-  border-radius: 50%
-
+.edibleGHOST1  {
+  background-image: url('https://i.imgur.com/MrqTkEd.png');
+  background-size: cover
 }
 
-.edibleGHOST2 {
-  background-image: url('https://i.imgur.com/Lo1iSCH.png');
-  background-size: cover;
-  border-radius: 50%
-
+.edibleGHOST2  {
+  background-image: url('https://i.imgur.com/MrqTkEd.png');
+  background-size: cover
 }
 
-.edibleGHOST3 {
-  background-image: url('https://i.imgur.com/Lo1iSCH.png');
-  background-size: cover;
-  border-radius: 50%
-
+.edibleGHOST3  {
+  background-image: url('https://i.imgur.com/MrqTkEd.png');
+  background-size: cover
 }
 
 .edibleGHOST4 {
-  background-image: url('https://i.imgur.com/Lo1iSCH.png');
-  background-size: cover;
-  border-radius: 50%
-
+  background-image: url('https://i.imgur.com/MrqTkEd.png');
+  background-size: cover
 }
+
+.edibleGHOST1B { animation: changeBg 1s infinite; background-size:cover }
+@keyframes changeBg{
+    0%,100%  {background-image: url('https://i.imgur.com/MrqTkEd.png');}
+    25% {background-image: url('https://i.imgur.com/Z6X6iAk.png');}
+    50% {background-image: url('https://i.imgur.com/MrqTkEd.png');}
+    75% {background-image: url('https://i.imgur.com/Z6X6iAk.png');}
+}
+
+.edibleGHOST2B { animation: changeBg 1s infinite; background-size:cover }
+
+.edibleGHOST3B { animation: changeBg 1s infinite; background-size:cover }
+
+.edibleGHOST4B { animation: changeBg 1s infinite; background-size:cover }
+
 
 

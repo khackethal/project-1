@@ -46,13 +46,12 @@ for (let index = 0; index < width ** 2; index++) {
 
 
 //Looping through the array to build the grid
-
 function buildGridLevel1() {
 
   cells.forEach((cell, index) => {
 
     //Building the walls- not sure if there's a way around making the pattern with maths. Each row is a line
-    //Function only works for a width of 18, so if we have a higher level function we would have to update the rebuikld the larger grid in the function before we build walls
+    //Function only works for a width of 18, so if we have a higher level function we would have to update the rebuild the larger grid in the function before we build walls
     if ((index >= 0 && index < 18) ||
         (index === 18) || index === 26 || index === 27 || index === 35 ||
           index === 36  || (index >= 38 && index <= 42) || index === 44 || index === 45 || (index >= 47 && index <= 51) || index === 53 ||
@@ -119,7 +118,6 @@ function addFood() {
       foodArr.push(cells[index])
       food = foodArr.length 
     }
-
   })
 }
 
@@ -135,6 +133,7 @@ document.addEventListener('keydown', (event) => {
   
   // Get the keyboard character typed from event.key
   const key = event.key
+
 
   //MOVING DOWN
   if (key === 'ArrowDown' && !(pacman > (width ** 2) - width - 1)) {
@@ -210,36 +209,63 @@ function checkCells() {
     edibleGHOSTS()
     specialFood -= 1
     points += 50
-  }
+  } 
   else if (cells[pacman].classList.contains('edibleGHOST1')){
     points += 200
     clearInterval(intervalIDEdible)
-    cells[pacman].classList.remove('edibleGHOST1')
+    cells[ghost1].classList.remove('edibleGHOST1')
     ghost1 = 115
     cells[ghost1].classList.add('ghost1')
-  }
-  else if (cells[pacman].classList.contains('edibleGHOST2' )){
+    } 
+  else if (cells[pacman].classList.contains('edibleGHOST1B'))  {
     points += 200
+    clearInterval(intervalIDEdible)
+    cells[ghost1].classList.remove('edibleGHOST1B')
+    ghost1 = 115
+    cells[ghost1].classList.add('ghost1')
+    
+  }
+  else if (cells[pacman].classList.contains('edibleGHOST2')) {
     clearInterval(intervalIDEdible2)
-    cells[pacman].classList.remove('edibleGHOST2')
+    cells[ghost2].classList.remove('edibleGHOST2')
     ghost2 = 169
     cells[ghost2].classList.add('ghost2')
   }
-  else if (cells[pacman].classList.contains('edibleGHOST3' )){
+  else if (cells[pacman].classList.contains('edibleGHOST2B'))  {
+    points += 200
+    clearInterval(intervalIDEdible2)
+    cells[ghost2].classList.remove('edibleGHOST2B')
+    ghost2 = 169
+    cells[ghost2].classList.add('ghost2')
+    }
+  else if (cells[pacman].classList.contains('edibleGHOST3') ){
     points += 200
     clearInterval(intervalIDEdible3)
-    cells[pacman].classList.remove('edibleGHOST3')
+    cells[ghost3].classList.remove('edibleGHOST3')
+    ghost3 = 118
+    cells[ghost3].classList.add('ghost3')
+    } 
+  else if (cells[pacman].classList.contains('edibleGHOST3B'))  {
+    points += 200
+    cells[ghost3].classList.remove('edibleGHOST3B')
+    clearInterval(intervalIDEdible3)
     ghost3 = 118
     cells[ghost3].classList.add('ghost3')
   }
-  else if (cells[pacman].classList.contains('edibleGHOST4')){
+  else if (cells[pacman].classList.contains('edibleGHOST4') ){
     points += 200
     clearInterval(intervalIDEdible4)
-    cells[pacman].classList.remove('edibleGHOST4')
+    cells[ghost4].classList.remove('edibleGHOST4')
+    ghost4 = 172
+    cells[ghost4].classList.add('ghost4')
+    } 
+  else if (cells[pacman].classList.contains('edibleGHOST4B'))  {
+    points += 200
+    cells[ghost4].classList.remove('edibleGHOST4B')
+    clearInterval(intervalIDEdible4)
     ghost4 = 172
     cells[ghost4].classList.add('ghost4')
   }
-
   else if (cells[pacman].classList.contains('ghost1') ||
           cells[pacman].classList.contains('ghost2') ||
           cells[pacman].classList.contains('ghost3') ||
@@ -261,6 +287,10 @@ function checkCells() {
       cells[ghost2].classList.remove('edibleGHOST2')
       cells[ghost3].classList.remove('edibleGHOST3')
       cells[ghost4].classList.remove('edibleGHOST4')
+      cells[ghost1].classList.remove('edibleGHOST1B')
+      cells[ghost2].classList.remove('edibleGHOST2B')
+      cells[ghost3].classList.remove('edibleGHOST3B')
+      cells[ghost4].classList.remove('edibleGHOST4B')
   
       clearInterval(intervalID)
       clearInterval(intervalID2)
@@ -326,6 +356,14 @@ function checkCellsGhosts() {
       cells[ghost2].classList.remove('ghost2')
       cells[ghost3].classList.remove('ghost3')
       cells[ghost4].classList.remove('ghost4')
+      cells[ghost1].classList.remove('edibleGHOST1')
+      cells[ghost2].classList.remove('edibleGHOST2')
+      cells[ghost3].classList.remove('edibleGHOST3')
+      cells[ghost4].classList.remove('edibleGHOST4')
+      cells[ghost1].classList.remove('edibleGHOST1B')
+      cells[ghost2].classList.remove('edibleGHOST2B')
+      cells[ghost3].classList.remove('edibleGHOST3B')
+      cells[ghost4].classList.remove('edibleGHOST4B')
   
       pacman = ((width * (width - 1) - 2))
       cells[pacman].classList.add('pacman')
@@ -389,6 +427,7 @@ function edibleGHOSTS() {
 
 }
 
+//FIRST step start them blinking IF they're still edible, second step back to normal classes
 function backToNormal() {
 
   setTimeout(() => {
@@ -397,16 +436,65 @@ function backToNormal() {
     clearInterval(intervalIDEdible3)
     clearInterval(intervalIDEdible4)
 
+    checkGhost1()
+    checkGhost2()
+    checkGhost3()
+    checkGhost4()
+
+    backToNormalFinal()
+
+  }, 7000)
+}
+
+// CHECKING IF GHOSTS ARE STILL EDIBLE
+function checkGhost1() {
+  if (cells[ghost1].classList.contains('edibleGHOST1')) {
     cells[ghost1].classList.remove('edibleGHOST1')
+    cells[ghost1].classList.add('edibleGHOST1B')
+  }
+}
+
+function checkGhost2() {
+  if (cells[ghost2].classList.contains('edibleGHOST2')) {
+    cells[ghost2].classList.remove('edibleGHOST2')
+    cells[ghost2].classList.add('edibleGHOST2B')
+  }
+}
+
+function checkGhost3() {
+  if (cells[ghost3].classList.contains('edibleGHOST3')) {
+    cells[ghost3].classList.remove('edibleGHOST3')
+    cells[ghost3].classList.add('edibleGHOST3B')
+  }
+}
+
+function checkGhost4() {
+  if (cells[ghost4].classList.contains('edibleGHOST4')) {
+    cells[ghost4].classList.remove('edibleGHOST4')
+    cells[ghost4].classList.add('edibleGHOST4B')
+  }
+}
+
+
+
+function backToNormalFinal() {
+
+  setTimeout(() => {
+
+    cells[ghost1].classList.remove('edibleGHOST1')
+    cells[ghost1].classList.remove('edibleGHOST1B')
     cells[ghost1].classList.add('ghost1')
 
     cells[ghost2].classList.remove('edibleGHOST2')
+    cells[ghost2].classList.remove('edibleGHOST2B')
     cells[ghost2].classList.add('ghost2')
 
     cells[ghost3].classList.remove('edibleGHOST3')
+    cells[ghost3].classList.remove('edibleGHOST3B')
     cells[ghost3].classList.add('ghost3')
 
     cells[ghost4].classList.remove('edibleGHOST4')
+    cells[ghost4].classList.remove('edibleGHOST4B')
     cells[ghost4].classList.add('ghost4')
     
     isEdible = false
@@ -420,9 +508,9 @@ function backToNormal() {
     moveGhosts3() 
     moveGhosts4() 
 
-  }, 10000)
-
+  }, 3000)
 }
+
 
 //FUNCTION TO CHECK WHAT DIRECTIRONS A GHOST CAN MOVE IN
 //this works withuot defnining them outside functions as well
@@ -499,15 +587,19 @@ function moveGhosts() {
     checkPMDown()
     console.log(moveRight)
 
+    let rightDistance
 
     function checkPMRight() {
+      // let rightDistance
       if (moveRight) {
-        rightDistance = Number(cells[ghost1 + 1].innerHTML) - Number(cells[pacman].innerHTML)
-        return (Math.abs(rightDistance))
+        // rightDistance = Number(cells[ghost1 + 1].innerHTML) - Number(cells[pacman].innerHTML)
+        // return (Math.abs(rightDistance))
+        rightDistance = (Math.abs(Number(cells[ghost1 + 1].innerHTML) - Number(cells[pacman].innerHTML)))
       } else {
         rightDistance = 1000
-        return rightDistance
+        // return rightDistance
       }
+      return rightDistance
     }
 
     function checkPMLeft() {
@@ -543,7 +635,9 @@ function moveGhosts() {
 
     // PUSH RIGHT DOWN LEFT UP 
     const choicesArr = []
-    choicesArr.push(checkPMRight()) // RIGHT  = choicesArr[0] 
+    // choicesArr.push(checkPMRight()) // RIGHT  = choicesArr[0] 
+    choicesArr.push(rightDistance) // RIGHT  = choicesArr[0] 
+    choicesArr.push(checkPMLeft()) // RIGHT  = choicesArr[0] 
     choicesArr.push(checkPMDown()) // DOWN = chociesArr[1] 
     choicesArr.push(checkPMLeft()) //LEFT = chociesArr[2]
     choicesArr.push(checkPMUp()) // Up = choicesArr[3]
