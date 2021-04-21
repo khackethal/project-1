@@ -36,7 +36,7 @@ for (let index = 0; index < width ** 2; index++) {
   grid.appendChild(div)
 
   //number cells TURN OFF FOR FINAL STYLING !!!!!
-  // div.innerHTML = index
+  div.innerHTML = index
   //correct size
   div.style.width = `${100 / width}%`
   div.style.height = `${100 / width}%`
@@ -475,8 +475,6 @@ function checkGhost4() {
   }
 }
 
-
-
 function backToNormalFinal() {
 
   setTimeout(() => {
@@ -581,80 +579,105 @@ function moveGhosts() {
     checkUp(ghost1)
     checkDown(ghost1)
 
-    checkPMRight()
-    checkPMLeft()
-    checkPMUp()
-    checkPMDown()
-    console.log(moveRight)
+    //these will be checked 
+    let right
+    let left
+    let up
+    let down
 
-    let rightDistance
+    //choices array
+    const choices = []
 
-    function checkPMRight() {
-      // let rightDistance
-      if (moveRight) {
-        // rightDistance = Number(cells[ghost1 + 1].innerHTML) - Number(cells[pacman].innerHTML)
-        // return (Math.abs(rightDistance))
-        rightDistance = (Math.abs(Number(cells[ghost1 + 1].innerHTML) - Number(cells[pacman].innerHTML)))
-      } else {
-        rightDistance = 1000
-        // return rightDistance
-      }
-      return rightDistance
-    }
-
-    function checkPMLeft() {
-      if (moveLeft) {
-        leftDistance = Number(cells[ghost1 - 1].innerHTML) - Number(cells[pacman].innerHTML)
-        return (Math.abs(leftDistance))
-      } else {
-        leftDistance = 1000
-        return leftDistance
-      }
-    }
-
-    function checkPMUp() {
-      if (moveUp) {
-        upDistance = Number(cells[ghost1 - width].innerHTML) - Number(cells[pacman].innerHTML)
-        return (Math.abs(upDistance))
-      } else {
-        upDistance = 1000
-        return upDistance
-      }
-    }
-
-    function checkPMDown() {
-      if (moveDown) {
-        downDistance = Number(cells[ghost1 + width].innerHTML) - Number(cells[pacman].innerHTML)
-        return (Math.abs(downDistance))
-      } else {
-        downDistance = 1000
-        return downDistance
-      }
-    }
-
-
-    // PUSH RIGHT DOWN LEFT UP 
-    const choicesArr = []
-    // choicesArr.push(checkPMRight()) // RIGHT  = choicesArr[0] 
-    choicesArr.push(rightDistance) // RIGHT  = choicesArr[0] 
-    choicesArr.push(checkPMLeft()) // RIGHT  = choicesArr[0] 
-    choicesArr.push(checkPMDown()) // DOWN = chociesArr[1] 
-    choicesArr.push(checkPMLeft()) //LEFT = chociesArr[2]
-    choicesArr.push(checkPMUp()) // Up = choicesArr[3]
-
-
-    console.log('hola', choicesArr)
-
+    //function to return smallest array item index
     function indexOfSmallest(a) {
       return a.indexOf(Math.min.apply(Math, a))
     }
 
-    let direction
-    const moveTHERE = indexOfSmallest(choicesArr)
-    console.log(moveTHERE)
+    function getRight() {
+      if (moveRight) {
+        right = pacman - (ghost1 + 1) //testing without Math.abs()
+      } else {
+        right = 1000
+      }
+      return right
+    }
+
+    function getLeft() {
+      if (getLeft) {
+        left =  pacman - (ghost1 - 1)
+      } else {
+        left = 1000
+      }
+      return left
+    }
+
+    function getDown() {
+      if (moveDown) {
+        down = pacman - (ghost1 + 18)
+      } else {
+        down = 1000
+      }
+      return down
+    }
+
+    function getUp() {
+      if (moveUp) {
+        up = pacman - (ghost1 - 18)
+      } else {
+        up = 1000
+      }
+      return up 
+    }
+
+    getRight()
+    getLeft()
+    getUp()
+    getDown()
+
+    choices.push(right) // 0
+    choices.push(down) //1
+    choices.push(left) // 2
+    choices.push(up) //3
+
+    const move = indexOfSmallest(choices)
 
     //RIGHT
-    if (moveTHERE === 0 ) {
+    if (!left && !up && down || !up && !right && down) {
+      cells[ghost1].classList.remove('ghost1')
+      ghost1 += width
+      cells[ghost1].classList.add('ghost1')
+      cells[ghost1].classList.remove('ghost1')
+      ghost1 += 1
+      cells[ghost1].classList.add('ghost1')
+    }
+    else if(!left && !down && up || !right && !left && up) {
+      cells[ghost1].classList.remove('ghost1')
+      ghost1 -= width
+      cells[ghost1].classList.add('ghost1')
+      cells[ghost1].classList.remove('ghost1')
+      ghost1 += 1
+      cells[ghost1].classList.add('ghost1')
+    }
+
+    else if (move === 2 && pacman > ghost1 && cells[ghost1 + 1].classList.contains('wall')) {
+      if (!moveDown){
+        cells[ghost1].classList.remove('ghost1')
+        ghost1 -= width
+        cells[ghost1].classList.add('ghost1')
+        cells[ghost1].classList.remove('ghost1')
+        ghost1 += 1
+        cells[ghost1].classList.add('ghost1')
+      }
+      else if (moveDown) {
+        cells[ghost1].classList.remove('ghost1')
+        ghost1 += 1
+        cells[ghost1].classList.add('ghost1')
+        cells[ghost1].classList.remove('ghost1')
+        ghost1 += width
+        cells[ghost1].classList.add('ghost1')
+      }
+    }
+    else if (move === 0 && pacman > ghost1 && !cells[ghost1 + 1].classList.contains('wall') ) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 += 1
       cells[ghost1].classList.add('ghost1')
@@ -666,21 +689,21 @@ function moveGhosts() {
       // direction = 'right'
     } 
     //DOWN
-    else if (moveTHERE === 1 ) {
+    else if (move === 1 ) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 += width
       cells[ghost1].classList.add('ghost1')
       // direction = 'down'
     } 
     //LEFT
-    else if (moveTHERE === 2 ) {
+    else if (move === 2 ) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= 1
       cells[ghost1].classList.add('ghost1')
       // direction = 'left'
     } 
     //UP
-    else if (moveTHERE === 3) {
+    else if (move === 3) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= width
       cells[ghost1].classList.add('ghost1')
@@ -688,6 +711,7 @@ function moveGhosts() {
     }
   }, 1000)
 }
+
 
 
 
@@ -1310,5 +1334,5 @@ function  moveGhostsE4() {
   }
   // console.log(ghost4)
 
-  }, 1000)
+  }, 800)
 }
