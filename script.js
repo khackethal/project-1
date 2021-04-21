@@ -629,25 +629,18 @@ function moveGhosts() {
 
     const move = indexOfSmallest(choices)
 
-    //RIGHT
-    if (!left && !up && down || !up && !right && down) {
+    //ALWAYS MOVE DOWN IF YOU CAN AND PACKMAN IS AT LEAST ONE ROW BELOW YOU
+    if ((pacman - width) > ghost1 && down && !cells[ghost1 + width].classList.contains('wall')) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 += width
       cells[ghost1].classList.add('ghost1')
-      cells[ghost1].classList.remove('ghost1')
-      ghost1 += 1
-      cells[ghost1].classList.add('ghost1')
-    }
-    else if (!left && !down && up || !right && !left && up) {
+    } //Always move up if you can and packman is at least one row above you
+    else if ((pacman + width) < ghost1 && up && !cells[ghost1 - width].classList.contains('wall')) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= width
       cells[ghost1].classList.add('ghost1')
-      cells[ghost1].classList.remove('ghost1')
-      ghost1 += 1
-      cells[ghost1].classList.add('ghost1')
-    }
-
-    else if (move === 2 && pacman > ghost1 && cells[ghost1 + 1].classList.contains('wall')) {
+    } 
+    else if (move === 2 && !moveDown && pacman > ghost1 && cells[ghost1 + 1].classList.contains('wall')) {
       if (!moveDown){
         cells[ghost1].classList.remove('ghost1')
         ghost1 -= width
@@ -664,7 +657,7 @@ function moveGhosts() {
         ghost1 += width
         cells[ghost1].classList.add('ghost1')
       }
-    }
+    } //RIGHT 
     else if (move === 0 && pacman > ghost1 && !cells[ghost1 + 1].classList.contains('wall') ) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 += 1
@@ -684,7 +677,7 @@ function moveGhosts() {
       // direction = 'down'
     } 
     //LEFT
-    else if (move === 2 ) {
+    else if (move === 2 && !cells[ghost1 - 1].classList.contains('wall')) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= 1
       cells[ghost1].classList.add('ghost1')
@@ -697,7 +690,7 @@ function moveGhosts() {
       cells[ghost1].classList.add('ghost1')
 
     }
-  }, 1000)
+  }, 300)
 }
 
 
@@ -793,7 +786,7 @@ function moveGhosts2() {
     }
     // console.log(move, ghost2)
 
-  }, 700)
+  }, 500)
 }
 
 
@@ -886,7 +879,7 @@ function moveGhosts3() {
   }
   // console.log(move, ghost2)
 
-  }, 800)
+  }, 300)
 }
 
 // MOVING GHOST 4 = YELLOW ====================================================================================
@@ -977,7 +970,7 @@ function moveGhosts4() {
   }
   // console.log(ghost4)
 
-  }, 1000)
+  }, 400)
 }
 
 // MOVING EDIBLE GHOST 1 ====================================================================================
