@@ -36,7 +36,7 @@ for (let index = 0; index < width ** 2; index++) {
   grid.appendChild(div)
 
   //number cells TURN OFF FOR FINAL STYLING !!!!!
-  div.innerHTML = index
+  // div.innerHTML = index
   //correct size
   div.style.width = `${100 / width}%`
   div.style.height = `${100 / width}%`
@@ -202,80 +202,69 @@ function checkCells() {
     cells[pacman].classList.remove('food')
     food -= 1
     points += 10
-  }
-  else if (cells[pacman].classList.contains('specialfood')) {
+  } else if (cells[pacman].classList.contains('specialfood')) {
     points += 50
     cells[pacman].classList.remove('specialfood')
     edibleGHOSTS()
     specialFood -= 1
     points += 50
-  } 
-  else if (cells[pacman].classList.contains('edibleGHOST1')){
+  } else if (cells[pacman].classList.contains('edibleGHOST1')){
     points += 200
     clearInterval(intervalIDEdible)
     cells[ghost1].classList.remove('edibleGHOST1')
     ghost1 = 115
     cells[ghost1].classList.add('ghost1')
-    } 
-  else if (cells[pacman].classList.contains('edibleGHOST1B'))  {
+  } else if (cells[pacman].classList.contains('edibleGHOST1B'))  {
     points += 200
     clearInterval(intervalIDEdible)
     cells[ghost1].classList.remove('edibleGHOST1B')
     ghost1 = 115
     cells[ghost1].classList.add('ghost1')
     
-  }
-  else if (cells[pacman].classList.contains('edibleGHOST2')) {
+  } else if (cells[pacman].classList.contains('edibleGHOST2')) {
     clearInterval(intervalIDEdible2)
     cells[ghost2].classList.remove('edibleGHOST2')
     ghost2 = 169
     cells[ghost2].classList.add('ghost2')
-  }
-  else if (cells[pacman].classList.contains('edibleGHOST2B'))  {
+  } else if (cells[pacman].classList.contains('edibleGHOST2B'))  {
     points += 200
     clearInterval(intervalIDEdible2)
     cells[ghost2].classList.remove('edibleGHOST2B')
     ghost2 = 169
     cells[ghost2].classList.add('ghost2')
-    }
-  else if (cells[pacman].classList.contains('edibleGHOST3') ){
+  } else if (cells[pacman].classList.contains('edibleGHOST3') ){
     points += 200
     clearInterval(intervalIDEdible3)
     cells[ghost3].classList.remove('edibleGHOST3')
     ghost3 = 118
     cells[ghost3].classList.add('ghost3')
-    } 
-  else if (cells[pacman].classList.contains('edibleGHOST3B'))  {
+  } else if (cells[pacman].classList.contains('edibleGHOST3B'))  {
     points += 200
     cells[ghost3].classList.remove('edibleGHOST3B')
     clearInterval(intervalIDEdible3)
     ghost3 = 118
     cells[ghost3].classList.add('ghost3')
-  }
-  else if (cells[pacman].classList.contains('edibleGHOST4') ){
+  } else if (cells[pacman].classList.contains('edibleGHOST4') ){
     points += 200
     clearInterval(intervalIDEdible4)
     cells[ghost4].classList.remove('edibleGHOST4')
     ghost4 = 172
     cells[ghost4].classList.add('ghost4')
-    } 
-  else if (cells[pacman].classList.contains('edibleGHOST4B'))  {
+  } else if (cells[pacman].classList.contains('edibleGHOST4B'))  {
     points += 200
     cells[ghost4].classList.remove('edibleGHOST4B')
     clearInterval(intervalIDEdible4)
     ghost4 = 172
     cells[ghost4].classList.add('ghost4')
-  }
-  else if (cells[pacman].classList.contains('ghost1') ||
+  } else if (cells[pacman].classList.contains('ghost1') ||
           cells[pacman].classList.contains('ghost2') ||
           cells[pacman].classList.contains('ghost3') ||
           cells[pacman].classList.contains('ghost4') ) {
     lives -= 1 
     if (lives === 0) {
-      alert(`GAME OVER`)
+      alert('GAME OVER')
       location.reload()
-    }
-    else if (lives > 0 ) {
+    } else if (lives > 0 ) {
       alert(`Whoops. You died. You have ${lives} lives left.`)
       liveDIV.innerHTML = `LIVES LEFT : ${lives}`
       cells[pacman].classList.remove('pacman')
@@ -318,8 +307,7 @@ function checkCells() {
       isPlaying3 = false
       isPlaying4 = false
     } 
-  }
-  else if (food === 0 && specialFood === 0) {
+  } else if (food === 0 && specialFood === 0) {
     const compare = points
     if (compare > highScorePM) {
       localStorage.setItem('highScorePM', `${compare}`)
@@ -343,8 +331,7 @@ function checkCellsGhosts() {
     if (lives === 0) {
       alert(`GAME OVER`)
       location.reload()
-    }
-    else if (lives > 0 ){
+    } else if (lives > 0 ){
       alert(`Whoops. You died. You have ${lives} lives left.`)
       liveDIV.innerHTML = `LIVES LEFT : ${lives}`
       cells[pacman].classList.remove('pacman')
@@ -446,7 +433,7 @@ function backToNormal() {
   }, 7000)
 }
 
-// CHECKING IF GHOSTS ARE STILL EDIBLE
+// CHECKING IF GHOSTS ARE STILL EDIBLE AND IF YES ADD THE BLINKING CLASS
 function checkGhost1() {
   if (cells[ghost1].classList.contains('edibleGHOST1')) {
     cells[ghost1].classList.remove('edibleGHOST1')
@@ -475,6 +462,7 @@ function checkGhost4() {
   }
 }
 
+// BACK TO THEIR NORMAL STATE
 function backToNormalFinal() {
 
   setTimeout(() => {
@@ -511,7 +499,7 @@ function backToNormalFinal() {
 
 
 //FUNCTION TO CHECK WHAT DIRECTIRONS A GHOST CAN MOVE IN
-//this works withuot defnining them outside functions as well
+
 let moveRight
 let moveLeft
 let moveUp
@@ -595,7 +583,7 @@ function moveGhosts() {
 
     function getRight() {
       if (moveRight) {
-        right = pacman - (ghost1 + 1) //testing without Math.abs()
+        right = Math.abs(pacman - (ghost1 + 1)) //testing without Math.abs()
       } else {
         right = 1000
       }
@@ -604,7 +592,7 @@ function moveGhosts() {
 
     function getLeft() {
       if (getLeft) {
-        left =  pacman - (ghost1 - 1)
+        left =  Math.abs(pacman - (ghost1 - 1))
       } else {
         left = 1000
       }
@@ -613,7 +601,7 @@ function moveGhosts() {
 
     function getDown() {
       if (moveDown) {
-        down = pacman - (ghost1 + 18)
+        down = Math.abs(pacman - (ghost1 + width))
       } else {
         down = 1000
       }
@@ -622,7 +610,7 @@ function moveGhosts() {
 
     function getUp() {
       if (moveUp) {
-        up = pacman - (ghost1 - 18)
+        up = Math.abs(pacman - (ghost1 - width))
       } else {
         up = 1000
       }
@@ -650,7 +638,7 @@ function moveGhosts() {
       ghost1 += 1
       cells[ghost1].classList.add('ghost1')
     }
-    else if(!left && !down && up || !right && !left && up) {
+    else if (!left && !down && up || !right && !left && up) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= width
       cells[ghost1].classList.add('ghost1')
@@ -1038,8 +1026,6 @@ function moveGhostsE1() {
       }
       direction = 'left'
 
-
-
     // RIGHT FOR 2 
     } else if (move === 2  && direction !== 'left' && !(ghost1 % width === width - 1)) {
       cells[ghost1].classList.remove('edibleGHOST1')
@@ -1057,7 +1043,6 @@ function moveGhostsE1() {
         cells[ghost1].classList.add('edibleGHOST1')
       }
       direction = 'right'
-
 
   // UP FOR 3
   } else if (move === 3  && direction !== 'down' && !(ghost1 < width)) {
