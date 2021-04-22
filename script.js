@@ -419,7 +419,7 @@ function checkCells() {
       localStorage.setItem('highScorePM', `${compare}`)
       highScoreDIVPM.innerHTML = `Current High Score: ${compare}`
     }
-    alert(`🎉 You've eaten all the food ! 🎉 `)
+    alert(`🎉 You've eaten all the food - GAME WON! 🎉 `)
     location.reload()
   }
   scoreSpan.innerHTML = points
