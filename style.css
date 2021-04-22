@@ -87,8 +87,6 @@ body {
 }
 
 
-
-
 .ghost1 {
   background-image: url('https://i.imgur.com/I058VZS.png');
   background-size: cover
@@ -143,5 +141,39 @@ body {
 
 .edibleGHOST4B { animation: changeBg 1s infinite; background-size:cover }
 
+.overlay {
+  min-height: 100vh;
+  min-width: 100vw;
+  position: fixed;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.popup {
+  padding: 20px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 5%;
+}
+.hidden {
+  display: none
+}
 
+.cherry {
+  background-image: url('https://i.imgur.com/wF2gzFO.png');
+  background-size: cover
+}
+
+button {
+  background-color: black;
+  color: blue;
+  text-transform: uppercase;
+
+}
+
+.intro { 
+  text-align: center;
+  text-transform: uppercase;
+
+}

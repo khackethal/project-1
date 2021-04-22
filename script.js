@@ -2,6 +2,46 @@
 const grid = document.querySelector('.grid')
 const audioPlayer = document.querySelector('audio')
 
+// //Little start sequence with music
+// const startButton = document.querySelector('#startbutton')
+// const intro = document.querySelector('.intro')
+
+// const overlay = document.querySelector('.overlay')
+
+// const yesButton = document.querySelector('#confirm')
+
+// yesButton.addEventListener('click', () => {
+
+//   // audioPlayer.src = './Audio/PACMAN_INTRO.mp3'
+//   // audioPlayer.play()
+
+//   overlay.classList.add('hidden')
+//   buildGridLevel1()
+//   showGrid()
+
+// })
+
+// //INtro and build grid at the start
+// startButton.addEventListener('click', () => {
+
+//   audioPlayer.src = './Audio/PACMAN_INTRO.mp3'
+//   audioPlayer.play()
+
+//   startButton.classList.add('hidden')
+//   intro.classList.remove('hidden')
+//   buildGridLevel1()
+//   showGrid()
+
+// })
+
+// //Function to show grid
+// function showGrid() {
+//   setTimeout(() => {
+//     grid.classList.remove('hidden')
+//     intro.classList.add('hidden')
+//   }, 4000)
+// }
+
 //Setting width to 18 cells for initial grid
 const width = 18
 
@@ -35,6 +75,7 @@ highScoreDIVPM.innerHTML = `Current high score is ${highScorePM}`
 for (let index = 0; index < width ** 2; index++) {
   const div = document.createElement('div')
   grid.appendChild(div)
+  // div.innerHTML = index
   //correct size
   div.style.width = `${100 / width}%`
   div.style.height = `${100 / width}%`
@@ -75,7 +116,7 @@ function buildGridLevel1() {
     //Might as well add the portal calls to the portals
     } else if (index === 144 || index === 161) {
       cells[index].classList.add('portal')
-    } else if (index === 37 || index === 52 || index === 271 || index === 286) {
+    } else if (index === 109 || index === 52 || index === 271 || index === 244) {
       cells[index].classList.add('specialfood')
     } else { //WALWAY CELLS
       cells[index].classList.add('walkway')
@@ -121,21 +162,14 @@ let isPlayingAudio = 0
 let chompInterval
 
 function chompsound() {
-
   chompInterval = setInterval(() => {
     audioPlayer.src = './Audio/Chomp.mp3'
     audioPlayer.play()
   } , 700)
-  // audioPlayer.src = './Audio/Chomp.mp3'
-  // audioPlayer.play()
-  // audioPlayer.loop = true 
 
 }
 
-
-
 //Moving PACMAN on the grid - moved the adding of him into the build function as he reloads in same place
-
 document.addEventListener('keydown', (event) => {
   // Start GHOSTS
   moveGhosts()
@@ -323,17 +357,16 @@ function checkCells() {
           cells[pacman].classList.contains('ghost4') ) {
     audioPlayer.src = './Audio/You_died.mp3'
     audioPlayer.play()
-    // audioPlayer.loop = false 
+
     clearInterval(chompInterval)
     isPlayingAudio = 0
     lives -= 1 
     if (lives === 0) {
       alert('GAME OVER')
-      audioPlayer.src = './Audio/You_died.mp3'
-      audioPlayer.play()
-      // audioPlayer.loop = false 
       clearInterval(chompInterval)
       isPlayingAudio = 0
+      audioPlayer.src = './Audio/You_died.mp3'
+      audioPlayer.play()
       location.reload()
     } else if (lives > 0 ) {
       alert(`Whoops. You died. You have ${lives} lives left.`)
@@ -405,12 +438,13 @@ function checkCellsGhosts() {
     cells[ghost4].classList.contains('pacman_up') || cells[ghost4].classList.contains('pacman_down')) {
     audioPlayer.src = './Audio/You_died.mp3'
     audioPlayer.play()
-    clearInterval(chompInterval)
-    // audioPlayer.loop = false 
+    clearInterval(chompInterval)                                                                     
     isPlayingAudio = 0
     lives -= 1 
     if (lives === 0) {
       alert(`GAME OVER`)
+      audioPlayer.src = './Audio/You_died.mp3'
+      audioPlayer.play()
       location.reload()
     } else if (lives > 0 ){
       alert(`Whoops. You died. You have ${lives} lives left.`)
@@ -438,7 +472,6 @@ function checkCellsGhosts() {
   
       pacman = ((width * (width - 1) - 2))
       cells[pacman].classList.add('pacman_left')
-      // cells[pacman].classList.add('pacman__mouth')
       ghost1 = 115
       ghost2 = 169
       ghost3 = 118
@@ -454,7 +487,6 @@ function checkCellsGhosts() {
       isPlaying4 = false
     }    
   }
-  
 }
 
 //EDIBLE GHOSTS && TIMEOUT TO SET THEM BACK TO NORMAL
@@ -720,8 +752,7 @@ function moveGhosts() {
         ghost1 += 1
         cells[ghost1].classList.add('ghost1')
       }
-    }
-    else if (pacman > ghost1 && moveUp && cells[ghost1 + 1].classList.contains('wall') && cells[ghost1 + 2].classList.contains('walkway')){
+    } else if (pacman > ghost1 && moveUp && cells[ghost1 + 1].classList.contains('wall') && cells[ghost1 + 2].classList.contains('walkway')){
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= width
       cells[ghost1].classList.add('ghost1')
@@ -731,8 +762,7 @@ function moveGhosts() {
       cells[ghost1].classList.remove('ghost1')
       ghost1 += 1
       cells[ghost1].classList.add('ghost1')
-    }
-    else if (pacman < ghost1 && cells[ghost1 + 1].classList.contains('wall') && cells[ghost1 - 2].classList.contains('walkway')){
+    } else if (pacman < ghost1 && cells[ghost1 + 1].classList.contains('wall') && cells[ghost1 - 2].classList.contains('walkway')){
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= width
       cells[ghost1].classList.add('ghost1')
@@ -742,8 +772,7 @@ function moveGhosts() {
       cells[ghost1].classList.remove('ghost1')
       ghost1 += 1
       cells[ghost1].classList.add('ghost1')
-    }
-    else if (pacman < ghost1 && moveLeft && !moveUp) {
+    } else if (pacman < ghost1 && moveLeft && !moveUp) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= 1
       cells[ghost1].classList.add('ghost1')
@@ -816,27 +845,24 @@ function moveGhosts2() {
       if (cells[ghost2].classList.contains('wall')) {
         ghost2 -= width
         cells[ghost2].classList.add('ghost2')
-      } 
-      else {
+      } else {
         cells[ghost2].classList.add('ghost2')
       }
       direction = 'down'
       checkCellsGhosts()
 
-  //LEFT FOR 1 & 2 & 3
-    } else if ((move === 1 || move === 2 || move === 3) && direction !== 'right' && (!(ghost2 % width === 0) || cells[ghost2].classList.contains('portal')) ){
+    //LEFT FOR 1 & 2 & 3
+    } else if ((move === 1 || move === 2 ) && direction !== 'right' && (!(ghost2 % width === 0) || cells[ghost2].classList.contains('portal')) ){
       cells[ghost2].classList.remove('ghost2')
       ghost2 -= 1
       if (cells[ghost2].classList.contains('wall')) {
         ghost2 += 1
         cells[ghost2].classList.add('ghost2')
-      }
-      else if (cells[ghost2].classList.contains('portal')) {
+      } else if (cells[ghost2].classList.contains('portal')) {
         cells[ghost2].classList.remove('ghost2')
         ghost2 += 17
         cells[ghost2].classList.add('ghost2')
-      }
-      else {
+      } else {
         cells[ghost2].classList.add('ghost2')
       }
       direction = 'left'
@@ -850,34 +876,29 @@ function moveGhosts2() {
       if (cells[ghost2].classList.contains('wall')) {
         ghost2 -= 1
         cells[ghost2].classList.add('ghost2')
-      }
-      else if (cells[ghost2].classList.contains('portal')) {
+      } else if (cells[ghost2].classList.contains('portal')) {
         cells[ghost2].classList.remove('ghost2')
         ghost2 -= 17
         cells[ghost2].classList.add('ghost2')
-      }
-      else {
+      } else {
         cells[ghost2].classList.add('ghost2')
       }
       direction = 'right'
       checkCellsGhosts()
 
-    // UP FOR 5
-    } else if (move === 5  && direction !== 'down' && !(ghost2 < width)) {
+    // UP FOR 5 & 3
+    } else if ((move === 5 || move === 3) && direction !== 'down' && !(ghost2 < width)) {
       cells[ghost2].classList.remove('ghost2')
       ghost2 -= width
       if (cells[ghost2].classList.contains('wall')) {
         ghost2 += width
         cells[ghost2].classList.add('ghost2')
-      }
-      else {
+      } else {
         cells[ghost2].classList.add('ghots2')
       }
       direction = 'up'
       checkCellsGhosts()
     }
-    // console.log(move, ghost2)
-
   }, 500)
 }
 
@@ -909,68 +930,60 @@ function moveGhosts3() {
       if (cells[ghost3].classList.contains('wall')) {
         ghost3 -= width
         cells[ghost3].classList.add('ghost3')
-      } 
-      else {
+      } else {
         cells[ghost3].classList.add('ghost3')
       }
       direction = 'down'
       checkCellsGhosts()
 
-  //LEFT FOR 1 & 2 & 3
+    //LEFT FOR 1 & 2 & 3
     } else if ((move === 1 || move === 2 || move === 3) && direction !== 'right' && (!(ghost3 % width === 0) || cells[ghost3].classList.contains('portal')) ){
       cells[ghost3].classList.remove('ghost3')
       ghost3 -= 1
       if (cells[ghost3].classList.contains('wall')) {
         ghost3 += 1
         cells[ghost3].classList.add('ghost3')
-      }
-      else if (cells[ghost3].classList.contains('portal')) {
+      } else if (cells[ghost3].classList.contains('portal')) {
         cells[ghost3].classList.remove('ghost3')
         ghost3 += 17
         cells[ghost3].classList.add('ghost3')
-      }
-      else {
+      } else {
         cells[ghost3].classList.add('ghost3')
       }
       direction = 'left'
       checkCellsGhosts()
 
 
-  // RIGHT FOR 4 
+    // RIGHT FOR 4 
     } else if (move === 4  && direction !== 'left' && !(ghost3 % width === width - 1)) {
       cells[ghost3].classList.remove('ghost3')
       ghost3 += 1
       if (cells[ghost3].classList.contains('wall')) {
         ghost3 -= 1
         cells[ghost3].classList.add('ghost3')
-      }
-      else if (cells[ghost3].classList.contains('portal')) {
+      } else if (cells[ghost3].classList.contains('portal')) {
         cells[ghost3].classList.remove('ghost3')
         ghost3 -= 17
         cells[ghost3].classList.add('ghost3')
-      }
-      else {
+      } else {
         cells[ghost3].classList.add('ghost3')
       }
       direction = 'right'
       checkCellsGhosts()
 
-  // UP FOR 5
-  } else if (move === 5  && direction !== 'down' && !(ghost3 < width)) {
+    // UP FOR 5
+    } else if (move === 5  && direction !== 'down' && !(ghost3 < width)) {
       cells[ghost3].classList.remove('ghost3')
       ghost3 -= width
       if (cells[ghost3].classList.contains('wall')) {
         ghost3 += width
         cells[ghost3].classList.add('ghost3')
-      }
-      else {
+      } else {
         cells[ghost3].classList.add('ghots3')
       }
       direction = 'up'
       checkCellsGhosts()
-  }
-  // console.log(move, ghost2)
-
+    }
   }, 300)
 }
 
@@ -1000,68 +1013,60 @@ function moveGhosts4() {
       if (cells[ghost4].classList.contains('wall')) {
         ghost4 -= width
         cells[ghost4].classList.add('ghost4')
-      } 
-      else {
+      } else {
         cells[ghost4].classList.add('ghost4')
       }
       direction = 'down'
       checkCellsGhosts()
 
-  //LEFT FOR 1 & 2 & 3
+    //LEFT FOR 1 & 2 & 3
     } else if ((move === 1 || move === 2 || move === 3) && direction !== 'right' && (!(ghost4 % width === 0) || cells[ghost4].classList.contains('portal')) ){
       cells[ghost4].classList.remove('ghost4')
       ghost4 -= 1
       if (cells[ghost4].classList.contains('wall')) {
         ghost4 += 1
         cells[ghost4].classList.add('ghost4')
-      }
-      else if (cells[ghost4].classList.contains('portal')) {
+      } else if (cells[ghost4].classList.contains('portal')) {
         cells[ghost4].classList.remove('ghost4')
         ghost4 += 17
         cells[ghost4].classList.add('ghost4')
-      }
-      else {
+      } else {
         cells[ghost4].classList.add('ghost4')
       }
       direction = 'left'
       checkCellsGhosts()
 
 
-  // RIGHT FOR 4 
+    // RIGHT FOR 4 
     } else if (move === 4  && direction !== 'left' && !(ghost4 % width === width - 1)) {
       cells[ghost4].classList.remove('ghost4')
       ghost4 += 1
       if (cells[ghost4].classList.contains('wall')) {
         ghost4 -= 1
         cells[ghost4].classList.add('ghost4')
-      }
-      else if (cells[ghost4].classList.contains('portal')) {
+      } else if (cells[ghost4].classList.contains('portal')) {
         cells[ghost4].classList.remove('ghost4')
         ghost4 -= 17
         cells[ghost4].classList.add('ghost4')
-      }
-      else {
+      } else {
         cells[ghost4].classList.add('ghost4')
       }
       direction = 'right'
       checkCellsGhosts()
 
-  // UP FOR 5
-  } else if (move === 5  && direction !== 'down' && !(ghost4 < width)) {
+    // UP FOR 5
+    } else if (move === 5  && direction !== 'down' && !(ghost4 < width)) {
       cells[ghost4].classList.remove('ghost4')
       ghost4 -= width
       if (cells[ghost4].classList.contains('wall')) {
         ghost4 += width
         cells[ghost4].classList.add('ghost4')
-      }
-      else {
+      } else {
         cells[ghost4].classList.add('ghots4')
       }
       direction = 'up'
       checkCellsGhosts()
-  }
-  // console.log(ghost4)
-
+    }
   }, 400)
 }
 
@@ -1100,13 +1105,11 @@ function moveGhostsE1() {
       if (cells[ghost1].classList.contains('wall')) {
         ghost1 += 1
         cells[ghost1].classList.add('edibleGHOST1')
-      }
-      else if (cells[ghost1].classList.contains('portal')) {
+      } else if (cells[ghost1].classList.contains('portal')) {
         cells[ghost1].classList.remove('edibleGHOST1')
         ghost1 += 17
         cells[ghost1].classList.add('edibleGHOST1')
-      }
-      else {
+      } else {
         cells[ghost1].classList.add('edibleGHOST1')
       }
       direction = 'left'
@@ -1118,32 +1121,28 @@ function moveGhostsE1() {
       if (cells[ghost1].classList.contains('wall')) {
         ghost1 -= 1
         cells[ghost1].classList.add('edibleGHOST1')
-      }
-      else if (cells[ghost1].classList.contains('portal')) {
+      } else if (cells[ghost1].classList.contains('portal')) {
         cells[ghost1].classList.remove('edibleGHOST1')
         ghost1 -= 17
         cells[ghost1].classList.add('edibleGHOST1')
-      }
-      else {
+      } else {
         cells[ghost1].classList.add('edibleGHOST1')
       }
       direction = 'right'
 
-  // UP FOR 3
-  } else if (move === 3  && direction !== 'down' && !(ghost1 < width)) {
+    // UP FOR 3
+    } else if (move === 3  && direction !== 'down' && !(ghost1 < width)) {
       cells[ghost1].classList.remove('edibleGHOST1')
       ghost1 -= width
       if (cells[ghost1].classList.contains('wall')) {
         ghost1 += width
         cells[ghost1].classList.add('edibleGHOST1')
-      }
-      else {
+      } else {
         cells[ghost1].classList.add('edibleGHOST1')
       }
       direction = 'up'
 
     }
-
   }, 600)
 }
 
@@ -1175,8 +1174,7 @@ function moveGhostsE2() {
       if (cells[ghost2].classList.contains('wall')) {
         ghost2 -= width
         cells[ghost2].classList.add('edibleGHOST2')
-      } 
-      else {
+      } else {
         cells[ghost2].classList.add('edibleGHOST2 ')
       }
       direction = 'down'
@@ -1188,13 +1186,11 @@ function moveGhostsE2() {
       if (cells[ghost2].classList.contains('wall')) {
         ghost2 += 1
         cells[ghost2].classList.add('gedibleGHOST2')
-      }
-      else if (cells[ghost2].classList.contains('portal')) {
+      } else if (cells[ghost2].classList.contains('portal')) {
         cells[ghost2].classList.remove('edibleGHOST2')
         ghost2 += 17
         cells[ghost2].classList.add('edibleGHOST2')
-      }
-      else {
+      } else {
         cells[ghost2].classList.add('edibleGHOST2')
       }
       direction = 'left'
@@ -1206,13 +1202,11 @@ function moveGhostsE2() {
       if (cells[ghost2].classList.contains('wall')) {
         ghost2 -= 1
         cells[ghost2].classList.add('edibleGHOST2')
-      }
-      else if (cells[ghost2].classList.contains('portal')) {
+      } else if (cells[ghost2].classList.contains('portal')) {
         cells[ghost2].classList.remove('edibleGHOST2')
         ghost2 -= 17
         cells[ghost2].classList.add('edibleGHOST2')
-      }
-      else {
+      } else {
         cells[ghost2].classList.add('edibleGHOST2')
       }
       direction = 'right'
@@ -1224,8 +1218,7 @@ function moveGhostsE2() {
       if (cells[ghost2].classList.contains('wall')) {
         ghost2 += width
         cells[ghost2].classList.add('edibleGHOST2')
-      }
-      else {
+      } else {
         cells[ghost2].classList.add('edibleGHOST2')
       }
       direction = 'up'
@@ -1269,55 +1262,50 @@ function moveGhostsE3() {
       }
       direction = 'down'
 
-  //LEFT FOR 1 & 2 & 3
+    //LEFT FOR 1 & 2 & 3
     } else if ((move === 1 || move === 2 || move === 3) && direction !== 'right' && (!(ghost3 % width === 0) || cells[ghost3].classList.contains('portal')) ){
       cells[ghost3].classList.remove('edibleGHOST3')
       ghost3 -= 1
       if (cells[ghost3].classList.contains('wall')) {
         ghost3 += 1
         cells[ghost3].classList.add('edibleGHOST3')
-      }
-      else if (cells[ghost3].classList.contains('portal')) {
+      } else if (cells[ghost3].classList.contains('portal')) {
         cells[ghost3].classList.remove('edibleGHOST3')
         ghost3 += 17
         cells[ghost3].classList.add('edibleGHOST3')
-      }
-      else {
+      } else {
         cells[ghost3].classList.add('edibleGHOST3')
       }
       direction = 'left'
 
-  // RIGHT FOR 4 
+    // RIGHT FOR 4 
     } else if (move === 4  && direction !== 'left' && !(ghost3 % width === width - 1)) {
       cells[ghost3].classList.remove('edibleGHOST3')
       ghost3 += 1
       if (cells[ghost3].classList.contains('wall')) {
         ghost3 -= 1
         cells[ghost3].classList.add('edibleGHOST3')
-      }
-      else if (cells[ghost3].classList.contains('portal')) {
+      } else if (cells[ghost3].classList.contains('portal')) {
         cells[ghost3].classList.remove('edibleGHOST3')
         ghost3 -= 17
         cells[ghost3].classList.add('edibleGHOST3')
-      }
-      else {
+      } else {
         cells[ghost3].classList.add('edibleGHOST3')
       }
       direction = 'right'
 
-  // UP FOR 5
-  } else if (move === 5  && direction !== 'down' && !(ghost3 < width)) {
+    // UP FOR 5
+    } else if (move === 5  && direction !== 'down' && !(ghost3 < width)) {
       cells[ghost3].classList.remove('edibleGHOST3')
       ghost3 -= width
       if (cells[ghost3].classList.contains('wall')) {
         ghost3 += width
         cells[ghost3].classList.add('edibleGHOST3')
-      }
-      else {
+      } else {
         cells[ghost3].classList.add('edibleGHOST3')
       }
       direction = 'up'
-  }
+    }
   }, 800)
 }
 
@@ -1347,8 +1335,7 @@ function  moveGhostsE4() {
       if (cells[ghost4].classList.contains('wall')) {
         ghost4 -= width
         cells[ghost4].classList.add('edibleGHOST4')
-      } 
-      else {
+      } else {
         cells[ghost4].classList.add('edibleGHOST4')
       }
       direction = 'down'
@@ -1360,13 +1347,11 @@ function  moveGhostsE4() {
       if (cells[ghost4].classList.contains('wall')) {
         ghost4 += 1
         cells[ghost4].classList.add('edibleGHOST4')
-      }
-      else if (cells[ghost4].classList.contains('portal')) {
+      } else if (cells[ghost4].classList.contains('portal')) {
         cells[ghost4].classList.remove('edibleGHOST4')
         ghost4 += 17
         cells[ghost4].classList.add('edibleGHOST4')
-      }
-      else {
+      } else {
         cells[ghost4].classList.add('edibleGHOST4')
       }
       direction = 'left'
@@ -1378,31 +1363,26 @@ function  moveGhostsE4() {
       if (cells[ghost4].classList.contains('wall')) {
         ghost4 -= 1
         cells[ghost4].classList.add('edibleGHOST4')
-      }
-      else if (cells[ghost4].classList.contains('portal')) {
+      } else if (cells[ghost4].classList.contains('portal')) {
         cells[ghost4].classList.remove('edibleGHOST4')
         ghost4 -= 17
         cells[ghost4].classList.add('edibleGHOST4')
-      }
-      else {
+      } else {
         cells[ghost4].classList.add('edibleGHOST4')
       }
       direction = 'right'
 
-  // UP FOR 5
-  } else if (move === 5  && direction !== 'down' && !(ghost4 < width)) {
+    // UP FOR 5
+    } else if (move === 5  && direction !== 'down' && !(ghost4 < width)) {
       cells[ghost4].classList.remove('edibleGHOST4')
       ghost4 -= width
       if (cells[ghost4].classList.contains('wall')) {
         ghost4 += width
         cells[ghost4].classList.add('edibleGHOST4')
-      }
-      else {
+      } else {
         cells[ghost4].classList.add('edibleGHOST4')
       }
       direction = 'up'
-  }
-  // console.log(ghost4)
-
+    }
   }, 800)
 }

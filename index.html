@@ -8,18 +8,33 @@
   </head>
   <body>
     <h1>PAC MAN</h1>
+    <button class='hidden' id="startbutton">Click to start</button> 
     <section id='highScore'>
   
     </section>
-    <section>
-      Current Score: <span id='currentScore'> 0 </span>
-    </section>
-    <div></div>
+    <div class="overlay hidden">
+      <p>Game over- the Ghosts have won! Play again?</p>
+      <br>
+      <button id="confirm">Yes</button>
+      <button id="cancel">Cancel</button>
+    </div>
+
     <div class="grid">
     </div>
     <footer>
+    <section class="hidden">
+      Current Score: <span id='currentScore'> 0 </span>
+    </section>
+
+
+    <div class ="intro hidden">
+      Play with the UP, DOWN, LEFT and SIDE ARROWS. <br> Eat all the food. <br> Avoid the Ghosts. Good Luck!
+      <img src="https://i.imgur.com/4q7AQ8P.png">
+    </div>
+
+
       <div id="lives">Lives:</div>
-      <div id="level"></div>
+
       <audio src=""></audio>
     </footer>
     <script src="script.js" charset="utf-8"></script>
