@@ -51,19 +51,42 @@ body {
   background-image: radial-gradient(yellow 10%, transparent 0);
 }
 
-.pacman {
-  background-color: yellow;
-  border: 2px solid black;
-  border-radius: 50%
+
+
+.pacman_right { animation: changeBgPCR 1s infinite; background-size:cover }
+@keyframes changeBgPCR{
+    0%,100%  {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
+    25% {background-image: url('https://i.imgur.com/3H81OY6.png');}
+    50% {background-image: url('https://i.imgur.com/3H81OY6.png');}
+    75% {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
 }
 
-/* .pacman { animation: changeBgPC 1s infinite; background-size:cover }
-@keyframes changeBgPC{
+
+.pacman_left { animation: changeBgPCL 1s infinite; background-size:cover }
+@keyframes changeBgPCL{
     0%,100%  {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
-    25% {background-image: url('https://i.imgur.com/8nuzosO.png');}
-    50% {background-image: url('https://i.imgur.com/eUUKsWL.png');}
-    75% {background-image: url('https://i.imgur.com/8nuzosO.png');}
-} */
+    25% {background-image: url('https://i.imgur.com/AmjLTIR.png');} 
+    50% {background-image: url('https://i.imgur.com/AmjLTIR.png');}
+    75% {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
+}
+
+.pacman_up { animation: changeBgPCU 1s infinite; background-size:cover }
+@keyframes changeBgPCU{
+    0%,100%  {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
+    25% {background-image: url('https://i.imgur.com/j7koYdf.png');} 
+    50% {background-image: url('https://i.imgur.com/j7koYdf.png');}
+    75% {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
+}
+
+.pacman_down { animation: changeBgPCD 1.5s infinite; background-size:cover }
+@keyframes changeBgPCD{
+    0%,100%  {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
+    25% {background-image: url('https://i.imgur.com/YHjR0Da.png');} 
+    50% {background-image: url('https://i.imgur.com/YHjR0Da.png');}
+    75% {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
+}
+
+
 
 
 .ghost1 {
