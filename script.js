@@ -419,7 +419,7 @@ function checkCells() {
       localStorage.setItem('highScorePM', `${compare}`)
       highScoreDIVPM.innerHTML = `Current High Score: ${compare}`
     }
-    alert(`🎉 You've eaten all the food - GAME WON! 🎉 `)
+    alert(`🎉 You've eaten all the food - GAME WON! Your final score is ${points} 🎉 `)
     location.reload()
   }
   scoreSpan.innerHTML = points
@@ -762,16 +762,25 @@ function moveGhosts() {
       cells[ghost1].classList.remove('ghost1')
       ghost1 += 1
       cells[ghost1].classList.add('ghost1')
+      cells[ghost1].classList.remove('ghost1')
+      ghost1 += width
+      cells[ghost1].classList.add('ghost1')
     } else if (pacman < ghost1 && cells[ghost1 + 1].classList.contains('wall') && cells[ghost1 - 2].classList.contains('walkway')){
-      cells[ghost1].classList.remove('ghost1')
-      ghost1 -= width
-      cells[ghost1].classList.add('ghost1')
-      cells[ghost1].classList.remove('ghost1')
-      ghost1 -= width
-      cells[ghost1].classList.add('ghost1')
-      cells[ghost1].classList.remove('ghost1')
-      ghost1 += 1
-      cells[ghost1].classList.add('ghost1')
+      if (moveLeft) {
+        cells[ghost1].classList.remove('ghost1')
+        ghost1 -= 1
+        cells[ghost1].classList.add('ghost1')
+      } else if (cells[ghost1 - width -width + 1].classList.contains('walkway')) {
+        cells[ghost1].classList.remove('ghost1')
+        ghost1 -= width
+        cells[ghost1].classList.add('ghost1')
+        cells[ghost1].classList.remove('ghost1')
+        ghost1 -= width
+        cells[ghost1].classList.add('ghost1')
+        cells[ghost1].classList.remove('ghost1')
+        ghost1 += 1
+        cells[ghost1].classList.add('ghost1')
+      }
     } else if (pacman < ghost1 && moveLeft && !moveUp) {
       cells[ghost1].classList.remove('ghost1')
       ghost1 -= 1
