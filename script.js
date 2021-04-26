@@ -2,45 +2,59 @@
 const grid = document.querySelector('.grid')
 const audioPlayer = document.querySelector('audio')
 
-// //Little start sequence with music
-// const startButton = document.querySelector('#startbutton')
-// const intro = document.querySelector('.intro')
+//Little start sequence with music
+const startButton = document.querySelector('#startbutton')
+const intro = document.querySelector('.intro')
 
-// const overlay = document.querySelector('.overlay')
+const overlay = document.querySelector('.overlay')
 
-// const yesButton = document.querySelector('#confirm')
+const yesButton = document.querySelector('#confirm')
 
-// yesButton.addEventListener('click', () => {
+const scroreDiv = document.querySelector('.score')
+const scoreSpan = document.querySelector('#currentScore')
+let points = 0
 
-//   // audioPlayer.src = './Audio/PACMAN_INTRO.mp3'
-//   // audioPlayer.play()
+const highScoreDIVPM = document.querySelector('#highScore')
+const highScorePM = localStorage.getItem('highScorePM') || 0
+highScoreDIVPM.innerHTML = `Current high score is ${highScorePM}`
 
-//   overlay.classList.add('hidden')
-//   buildGridLevel1()
-//   showGrid()
+const liveLost = document.querySelector('.lives')
 
-// })
+const pacmanHeader = document.querySelector('#img')
 
-// //INtro and build grid at the start
-// startButton.addEventListener('click', () => {
 
-//   audioPlayer.src = './Audio/PACMAN_INTRO.mp3'
-//   audioPlayer.play()
+//Intro and build grid at the start
+startButton.addEventListener('click', () => {
 
-//   startButton.classList.add('hidden')
-//   intro.classList.remove('hidden')
-//   buildGridLevel1()
-//   showGrid()
+  audioPlayer.src = './Audio/PACMAN_INTRO.mp3'
+  audioPlayer.play()
 
-// })
+  startButton.classList.add('hidden')
+  intro.classList.add('hidden')
+  buildGridLevel1()
+  showGrid()
 
-// //Function to show grid
-// function showGrid() {
-//   setTimeout(() => {
-//     grid.classList.remove('hidden')
-//     intro.classList.add('hidden')
-//   }, 4000)
-// }
+})
+
+//Click to play again if game over
+yesButton.addEventListener('click', () => {
+  location.reload()
+
+})
+
+//Function to show grid
+function showGrid() {
+  setTimeout(() => {
+    grid.classList.remove('hidden')
+    intro.classList.add('hidden')
+    liveDIV.classList.remove('hidden')
+    highScoreDIVPM.classList.remove('hidden')
+    scroreDiv.classList.remove('hidden')
+    scoreSpan.classList.remove('hidden')
+    liveLost.classList.add('hidden')
+    pacmanHeader.classList.remove('hidden')
+  }, 1500)
+}
 
 //Setting width to 18 cells for initial grid
 const width = 18
@@ -64,12 +78,6 @@ let ghost2
 let ghost3 
 let ghost4 
 
-const scoreSpan = document.querySelector('#currentScore')
-let points = 0
-
-const highScoreDIVPM = document.querySelector('#highScore')
-const highScorePM = localStorage.getItem('highScorePM') || 0
-highScoreDIVPM.innerHTML = `Current high score is ${highScorePM}`
 
 
 for (let index = 0; index < width ** 2; index++) {
@@ -81,6 +89,91 @@ for (let index = 0; index < width ** 2; index++) {
   div.style.height = `${100 / width}%`
   //cell array
   cells.push(div)
+}
+
+function lostLife() {
+  clearInterval(chompInterval)
+  isPlayingAudio = 0
+  audioPlayer.src = './Audio/You_died.mp3'
+  audioPlayer.play()
+  grid.classList.add('hidden')
+  highScoreDIVPM.classList.add('hidden')
+  liveLost.classList.remove('hidden')
+  pacmanHeader.classList.add('hidden')
+  liveDIV.innerHTML = `LIVES LEFT : ${lives}`
+  cells[pacman].classList.remove('pacman_left')
+  cells[pacman].classList.remove('pacman_right')
+  cells[pacman].classList.remove('pacman_up')
+  cells[pacman].classList.remove('pacman_down')
+  clearInterval(intervalIDEdible)
+  clearInterval(intervalIDEdible2)
+  clearInterval(intervalIDEdible3)
+  clearInterval(intervalIDEdible4)
+  cells[ghost1].classList.remove('edibleGHOST1')
+  cells[ghost2].classList.remove('edibleGHOST2')
+  cells[ghost3].classList.remove('edibleGHOST3')
+  cells[ghost4].classList.remove('edibleGHOST4')
+  cells[ghost1].classList.remove('edibleGHOST1B')
+  cells[ghost2].classList.remove('edibleGHOST2B')
+  cells[ghost3].classList.remove('edibleGHOST3B')
+  cells[ghost4].classList.remove('edibleGHOST4B')
+
+  clearInterval(intervalID)
+  clearInterval(intervalID2)
+  clearInterval(intervalID3)
+  clearInterval(intervalID4)
+  cells[ghost1].classList.remove('ghost1')
+  cells[ghost2].classList.remove('ghost2')
+  cells[ghost3].classList.remove('ghost3')
+  cells[ghost4].classList.remove('ghost4')    
+
+  pacman = ((width * (width - 1) - 2))
+  cells[pacman].classList.add('pacman_left')
+
+  ghost1 = 115
+  ghost2 = 169
+  ghost3 = 118
+  ghost4 = 172
+  cells[ghost1].classList.add('ghost1')
+  cells[ghost2].classList.add('ghost2')
+  cells[ghost3].classList.add('ghost3')
+  cells[ghost4].classList.add('ghost4')
+  isPlaying = false
+  isPlaying2 = false
+  isPlaying3 = false
+  isPlaying4 = false
+  showGrid()
+
+}
+
+function gameOver() {
+  clearInterval(chompInterval)
+  isPlayingAudio = 0
+  audioPlayer.src = './Audio/You_died.mp3'
+  audioPlayer.play()
+  grid.classList.add('hidden')
+  highScoreDIVPM.classList.add('hidden')
+  pacmanHeader.classList.add('hidden')
+  overlay.classList.remove('hidden')
+  liveDIV.innerHTML = `LIVES LEFT : ${lives}`
+  cells[pacman].classList.remove('pacman_left')
+  cells[pacman].classList.remove('pacman_right')
+  cells[pacman].classList.remove('pacman_up')
+  cells[pacman].classList.remove('pacman_down')
+  clearInterval(intervalIDEdible)
+  clearInterval(intervalIDEdible2)
+  clearInterval(intervalIDEdible3)
+  clearInterval(intervalIDEdible4)
+  cells[ghost1].classList.remove('edibleGHOST1')
+  cells[ghost2].classList.remove('edibleGHOST2')
+  cells[ghost3].classList.remove('edibleGHOST3')
+  cells[ghost4].classList.remove('edibleGHOST4')
+  cells[ghost1].classList.remove('edibleGHOST1B')
+  cells[ghost2].classList.remove('edibleGHOST2B')
+  cells[ghost3].classList.remove('edibleGHOST3B')
+  cells[ghost4].classList.remove('edibleGHOST4B')
+
+
 }
 
 
@@ -113,7 +206,7 @@ function buildGridLevel1() {
     ){
       cells[index].classList.add('wall')
   
-    //Might as well add the portal calls to the portals
+    //Add portals
     } else if (index === 144 || index === 161) {
       cells[index].classList.add('portal')
     } else if (index === 109 || index === 52 || index === 271 || index === 244) {
@@ -121,6 +214,7 @@ function buildGridLevel1() {
     } else { //WALWAY CELLS
       cells[index].classList.add('walkway')
       walkway.push(cells[index])
+
       // walkway.innerHTML = index
     }
   }) 
@@ -143,15 +237,13 @@ function buildGridLevel1() {
   addFood()
 
 }
-buildGridLevel1()
 
-//the ghosts will loop though walkway and check they're getting closer to PACMAN, whilst PACMAN runs on the cells array
+
 function addFood() {
   walkway.forEach((cell, index) => {
     // walkway[index].innerHTML = index
     if (index < 38 || index > 77 || (index >= 38 && index <= 42) || (index >= 47 && index <= 51) ) {
       walkway[index].classList.add('food')
-
       foodArr.push(cells[index])
       food = foodArr.length 
     }
@@ -181,8 +273,6 @@ document.addEventListener('keydown', (event) => {
   if (isPlayingAudio === 1) {
     chompsound()
   }
-  
-  
   // Get the keyboard character typed from event.key
   const key = event.key
 
@@ -355,63 +445,12 @@ function checkCells() {
           cells[pacman].classList.contains('ghost2') ||
           cells[pacman].classList.contains('ghost3') ||
           cells[pacman].classList.contains('ghost4') ) {
-    audioPlayer.src = './Audio/You_died.mp3'
-    audioPlayer.play()
 
-    clearInterval(chompInterval)
-    isPlayingAudio = 0
     lives -= 1 
     if (lives === 0) {
-      alert('GAME OVER')
-      clearInterval(chompInterval)
-      isPlayingAudio = 0
-      audioPlayer.src = './Audio/You_died.mp3'
-      audioPlayer.play()
-      location.reload()
+      gameOver()
     } else if (lives > 0 ) {
-      alert(`Whoops. You died. You have ${lives} lives left.`)
-      liveDIV.innerHTML = `LIVES LEFT : ${lives}`
-      cells[pacman].classList.remove('pacman_left')
-      cells[pacman].classList.remove('pacman_right')
-      cells[pacman].classList.remove('pacman_up')
-      cells[pacman].classList.remove('pacman_down')
-      clearInterval(intervalIDEdible)
-      clearInterval(intervalIDEdible2)
-      clearInterval(intervalIDEdible3)
-      clearInterval(intervalIDEdible4)
-      cells[ghost1].classList.remove('edibleGHOST1')
-      cells[ghost2].classList.remove('edibleGHOST2')
-      cells[ghost3].classList.remove('edibleGHOST3')
-      cells[ghost4].classList.remove('edibleGHOST4')
-      cells[ghost1].classList.remove('edibleGHOST1B')
-      cells[ghost2].classList.remove('edibleGHOST2B')
-      cells[ghost3].classList.remove('edibleGHOST3B')
-      cells[ghost4].classList.remove('edibleGHOST4B')
-  
-      clearInterval(intervalID)
-      clearInterval(intervalID2)
-      clearInterval(intervalID3)
-      clearInterval(intervalID4)
-      cells[ghost1].classList.remove('ghost1')
-      cells[ghost2].classList.remove('ghost2')
-      cells[ghost3].classList.remove('ghost3')
-      cells[ghost4].classList.remove('ghost4')    
-  
-      pacman = ((width * (width - 1) - 2))
-      cells[pacman].classList.add('pacman_left')
-    
-      ghost1 = 115
-      ghost2 = 169
-      ghost3 = 118
-      ghost4 = 172
-      cells[ghost1].classList.add('ghost1')
-      cells[ghost2].classList.add('ghost2')
-      cells[ghost3].classList.add('ghost3')
-      cells[ghost4].classList.add('ghost4')
-      isPlaying = false
-      isPlaying2 = false
-      isPlaying3 = false
-      isPlaying4 = false
+      lostLife()
     } 
   } else if (food === 0 && specialFood === 0) {
     const compare = points
@@ -436,55 +475,12 @@ function checkCellsGhosts() {
     cells[ghost3].classList.contains('pacman_up') ||  cells[ghost3].classList.contains('pacman_down') ||
     cells[ghost4].classList.contains('pacman_left') || cells[ghost4].classList.contains('pacman_right') ||
     cells[ghost4].classList.contains('pacman_up') || cells[ghost4].classList.contains('pacman_down')) {
-    audioPlayer.src = './Audio/You_died.mp3'
-    audioPlayer.play()
-    clearInterval(chompInterval)                                                                     
-    isPlayingAudio = 0
     lives -= 1 
     if (lives === 0) {
-      alert(`GAME OVER`)
-      audioPlayer.src = './Audio/You_died.mp3'
-      audioPlayer.play()
-      location.reload()
-    } else if (lives > 0 ){
-      alert(`Whoops. You died. You have ${lives} lives left.`)
-      liveDIV.innerHTML = `LIVES LEFT : ${lives}`
-      cells[pacman].classList.remove('pacman_left')
-      cells[pacman].classList.remove('pacman_right')
-      cells[pacman].classList.remove('pacman_up')
-      cells[pacman].classList.remove('pacman_down')
-      clearInterval(intervalID)
-      clearInterval(intervalID2)
-      clearInterval(intervalID3)
-      clearInterval(intervalID4)
-      cells[ghost1].classList.remove('ghost1')
-      cells[ghost2].classList.remove('ghost2')
-      cells[ghost3].classList.remove('ghost3')
-      cells[ghost4].classList.remove('ghost4')
-      cells[ghost1].classList.remove('edibleGHOST1')
-      cells[ghost2].classList.remove('edibleGHOST2')
-      cells[ghost3].classList.remove('edibleGHOST3')
-      cells[ghost4].classList.remove('edibleGHOST4')
-      cells[ghost1].classList.remove('edibleGHOST1B')
-      cells[ghost2].classList.remove('edibleGHOST2B')
-      cells[ghost3].classList.remove('edibleGHOST3B')
-      cells[ghost4].classList.remove('edibleGHOST4B')
+      gameOver()
   
-      pacman = ((width * (width - 1) - 2))
-      cells[pacman].classList.add('pacman_left')
-      ghost1 = 115
-      ghost2 = 169
-      ghost3 = 118
-      ghost4 = 172
-      cells[ghost1].classList.add('ghost1')
-      cells[ghost2].classList.add('ghost2')
-      cells[ghost3].classList.add('ghost3')
-      cells[ghost4].classList.add('ghost4')
-      isEdible = false
-      isPlaying = false
-      isPlaying2 = false
-      isPlaying3 = false
-      isPlaying4 = false
+    } else if (lives > 0 ){
+      lostLife()
     }    
   }
 }

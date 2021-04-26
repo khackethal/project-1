@@ -11,6 +11,13 @@ body {
   margin: 0;
   color: white;
   background-color: black;
+  background-image: url('https://i.imgur.com/NyEjc8z.jpg');
+  background-size: cover;
+  font-family: 'Anonymous Pro', monospace;
+}
+h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-top: 50p;
 }
 
 .grid {
@@ -145,7 +152,6 @@ body {
   min-height: 100vh;
   min-width: 100vw;
   position: fixed;
-  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -167,13 +173,24 @@ body {
 
 button {
   background-color: black;
-  color: blue;
+  color: white;
+  font-size: 18px;
+  font-family: 'Anonymous Pro', monospace;
   text-transform: uppercase;
+  padding: 20px;
+  width: 200px;
+  margin: 50px;
+  border: 2px dashed white;
 
 }
 
 .intro { 
   text-align: center;
   text-transform: uppercase;
+  margin-top: 20px
+}
 
+.overlay{
+  flex-direction: column;
+  justify-content: center;
 }

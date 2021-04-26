@@ -3,40 +3,61 @@
   <head>
     <meta charset="utf-8">
     <title>PAC MAN</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
   </head>
   <body>
-    <h1>PAC MAN</h1>
-    <button class='hidden' id="startbutton">Click to start</button> 
-    <section id='highScore'>
-  
+
+    <div id="img"><img width="600px" src="https://i.imgur.com/6U0ME0i.png"/></div>
+    <section class="hidden" id='highScore'>  
     </section>
+
     <div class="overlay hidden">
-      <p>Game over- the Ghosts have won! Play again?</p>
+      <h4>Game over- the Ghosts have won!</h4>
+   <br>
+      <div><img src="https://i.imgur.com/KVkDFTT.gif"></div>
+      <button id="confirm">Reset</button>
       <br>
-      <button id="confirm">Yes</button>
-      <button id="cancel">Cancel</button>
+      <br>
     </div>
 
-    <div class="grid">
+
+
+    <div class ="intro">
+      Play with the up, down, left and side arrows. <br> Eat all the food. <br> Avoid the Ghosts.<br> Good Luck! <br>
+      <button class id="startbutton">Start</button> 
+      <div class="gif">
+        <img height="250px" src="https://i.imgur.com/C9N6Bv6.gif" /> 
+      </div>
+      </div>
+
+
+    <section class id='highScore'>
+
+
+
+    <div class="grid hidden">
     </div>
+
+    <div class="lives hidden">
+      <p>You've lost one life! </p>
+      <img src="https://i.imgur.com/MNvCo2k.gif">
+    </div>
+
+
     <footer>
-    <section >
+
+    <div class ="score hidden">
       Current Score: <span id='currentScore'> 0 </span>
-    </section>
-
-
-    <div class ="intro hidden">
-      Play with the UP, DOWN, LEFT and SIDE ARROWS. <br> Eat all the food. <br> Avoid the Ghosts. Good Luck!
-      <img src="https://i.imgur.com/4q7AQ8P.png">
     </div>
+    <div class="hidden" id="lives">Lives:</div>
 
-
-      <div id="lives">Lives:</div>
+      <div id="lives" class= "hidden">Lives:</div>
 
       <audio src=""></audio>
     </footer>
-    <script src="script.js" charset="utf-8"></script>
+    <script src="script2.js" charset="utf-8"></script>
   </body>
 </html>
