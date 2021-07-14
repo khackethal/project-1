@@ -11,17 +11,17 @@ No recommendations for best user experience. Get out of the lower right corner f
 
 ## Table of Contents
 
-1. [Brief](https://github.com/khackethal/project-1t#brief)
+1. [Brief](https://github.com/khackethal/project-1#brief)
 2. [Approach](https://github.com/khackethal/project-1#approach)
-   - [MVP](https://github.com/khackethal/project-1t#mvp)
-   - [Technologies](https://github.com/khackethal/project-1#technologies-frameworks-apis)
+   - [MVP](https://github.com/khackethal/project-1#mvp
+   - [Technologies](https://github.com/khackethal/project-1#technologies)
    - [Planning](https://github.com/khackethal/project-1#planning)
 3. [Project Details](https://github.com/khackethal/project-1#project-details)
-   - [The Board](https://github.com/khackethal/project-1t#hte-board)
-    - [Classes & Variables](https://github.com/khackethal/project-1t#classes--variables)
-    - [Ghost movement](https://github.com/khackethal/project-1t#ghost-movement)
-    - [Random Ghosts](https://github.com/khackethal/project-1t#random-ghosts)
-     - [Smart Ghost](https://github.com/khackethal/project-1t#smart-ghost)
+   - [The Board](https://github.com/khackethal/project-1#the-board)
+    - [Classes & Variables](https://github.com/khackethal/project-1#classes--variables)
+    - [Ghost movement](https://github.com/khackethal/project-1#ghost-movement)
+    - [Random Ghosts](https://github.com/khackethal/project-1#random-ghosts)
+     - [Smart Ghost](https://github.com/khackethal/project-1#smart-ghost)
 4. [Project Frames](https://github.com/khackethal/project-1#project-frames)
 5. [Wins, Challenges & Bugs](https://github.com/khackethal/project-1#wins-challenges--bugs)
 6. [Key Learnings and Future Features](https://github.com/khackethal/project-1#key-learnings--future-features)

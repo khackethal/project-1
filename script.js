@@ -825,7 +825,6 @@ function moveGhosts() {
 
 let isPlaying2 
 let intervalID2
-
 function moveGhosts2() {
 
   if (isPlaying2){
@@ -897,7 +896,7 @@ function moveGhosts2() {
         ghost2 += width
         cells[ghost2].classList.add('ghost2')
       } else {
-        cells[ghost2].classList.add('ghots2')
+        cells[ghost2].classList.add('ghost2')
       }
       direction = 'up'
       checkCellsGhosts()
