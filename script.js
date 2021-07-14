@@ -65,7 +65,7 @@ const walkway = []
 const foodArr = []
 
 let food = 0 // will be set to correct number when build function runs
-let specialFood = 4 // hardcoded for now as there's always 4
+let specialFood = 4 // hardcoded as there's always 4
 
 let pacman = 0
 let lives = 3
@@ -83,7 +83,7 @@ let ghost4
 for (let index = 0; index < width ** 2; index++) {
   const div = document.createElement('div')
   grid.appendChild(div)
-  // div.innerHTML = index
+
   //correct size
   div.style.width = `${100 / width}%`
   div.style.height = `${100 / width}%`
@@ -182,7 +182,7 @@ function buildGridLevel1() {
 
   cells.forEach((cell, index) => {
 
-    //Building the walls- not sure if there's a way around making the pattern with maths. Each row is a line
+    //Building the walls-Each row is a line
     //Function only works for a width of 18, so if we have a higher level function we would have to update the rebuild the larger grid in the function before we build walls
     if ((index >= 0 && index < 18) ||
         (index === 18) || index === 26 || index === 27 || index === 35 ||
@@ -206,7 +206,7 @@ function buildGridLevel1() {
     ){
       cells[index].classList.add('wall')
   
-    //Add portals
+    //Adding portals
     } else if (index === 144 || index === 161) {
       cells[index].classList.add('portal')
     } else if (index === 109 || index === 52 || index === 271 || index === 244) {
@@ -215,7 +215,6 @@ function buildGridLevel1() {
       cells[index].classList.add('walkway')
       walkway.push(cells[index])
 
-      // walkway.innerHTML = index
     }
   }) 
 
@@ -241,7 +240,6 @@ function buildGridLevel1() {
 
 function addFood() {
   walkway.forEach((cell, index) => {
-    // walkway[index].innerHTML = index
     if (index < 38 || index > 77 || (index >= 38 && index <= 42) || (index >= 47 && index <= 51) ) {
       walkway[index].classList.add('food')
       foodArr.push(cells[index])
@@ -261,7 +259,7 @@ function chompsound() {
 
 }
 
-//Moving PACMAN on the grid - moved the adding of him into the build function as he reloads in same place
+//Moving PACMAN on the grid - he is added to the grid in the build function as he reloads in same place
 document.addEventListener('keydown', (event) => {
   // Start GHOSTS
   moveGhosts()
@@ -616,7 +614,7 @@ let moveLeft
 let moveUp
 let moveDown
 
-//RIGHT - CAN YOU GO?
+//RIGHT 
 function checkRight(ghostIndex) {
   if (cells[ghostIndex + 1].classList.contains('walkway') || cells[ghostIndex + 1].classList.contains('portal')) {
     moveRight = true
