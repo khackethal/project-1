@@ -28,7 +28,7 @@ No recommendations for best user experience. Get out of the lower right corner f
 
 ## Brief
 
-The brief was to create the classic Pacman arcade game, written solely in 'Vanilla Javascript" using only techniques learned on the course so far, without looking at any external tutorials. Writing the readme one week after he project, even now I would not approach things the same way. But rather than refactoring the game I will explain my approach at the time, with the resources and knowledge available to me.
+The brief was to create the classic Pacman arcade game, written solely in 'Vanilla JavaScript" using only techniques learned on the course so far, without looking at any external tutorials. Writing the readme one week after the project, even now I would not approach things the same way. But rather than refactoring the game I will explain my approach at the time, with the resources and knowledge available to me.
 
 
 ### Requirements
@@ -46,7 +46,7 @@ The brief was to create the classic Pacman arcade game, written solely in 'Vanil
 
 ### MVP
 
-My main focus was to achieve a playable game that takes into account the pints Pacman gains as he moves, as well as the ghosts switching between 'edible' and 'non-edible' mode. As smart ghost movement was clearly flagged as a stretch goal by the GA team I focused on polishing the game before moving on to it.
+My main focus was to achieve a playable game that takes into account the points Pacman gains as he moves, as well as the ghosts switching between 'edible' and 'non-edible' mode. As smart ghost movement was clearly flagged as a stretch goal by the GA team I focused on polishing the game before moving on to it.
 
 
 ### Technologies
@@ -209,7 +209,7 @@ Pacman moving and triggering the ```checkCells()`` function on every move:
 ### Ghost movement
 
 I found that if I relied only on Pacman himself to check if he encounters a Ghost he would sometimes 'survive' if a Ghost runs into him when he stands still.
-Therefor the Ghosts have their own specialised function to check if they encounter Pacman:
+Therefore the Ghosts have their own specialised function to check if they encounter Pacman:
 
 ```
 
@@ -581,6 +581,6 @@ Specifically the chomp sound that plays on a loop while Pacman is moving sometim
 
 ### Key Learnings & Future Features
 
-The project was an eye opener in terms of how JavaScrip classes can create animations, movement and user interactions. 
+The project was an eye opener in terms of how JavaScript classes can create animations, movement and user interactions. 
 
 If I do get time going forward I would like to clear up the sound, and find a solution that does not involve a hard reset between games.
