@@ -13,7 +13,7 @@ No recommendations for best user experience. Get out of the lower right corner f
 
 1. [Brief](https://github.com/khackethal/project-1#brief)
 2. [Approach](https://github.com/khackethal/project-1#approach)
-   - [MVP](https://github.com/khackethal/project-1#mvp
+   - [MVP](https://github.com/khackethal/project-1#mvp)
    - [Technologies](https://github.com/khackethal/project-1#technologies)
    - [Planning](https://github.com/khackethal/project-1#planning)
 3. [Project Details](https://github.com/khackethal/project-1#project-details)
