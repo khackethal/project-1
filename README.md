@@ -73,7 +73,7 @@ Here is a digital recreation of my wall at the time...
 I decided to only have one board, which is hardcoded into a JavaScript build function. The only html for the grid is a parent div. 
 The width of the board is set to 18, and a FOR LOOP is used to create child divs. Each div is being pushed into an Array as it is created.
 This Array is then looped over in order to apply the correct class to each div.
-This function to build the grid and seed the classes is run on onClick when the user clicks the NEW GAME button displayed on page load.
+This function to build the grid and seed the classes is run on onClick when the user clicks the START button displayed on page load.
 
 
 ### Classes & Variables
@@ -96,7 +96,7 @@ Pacman himself is a yellow circle with an animation for his mouth opening and cl
 
 Animation classes
 
-```
+```js
 .pacman_right { animation: changeBgPCR 1s infinite; background-size:cover }
 @keyframes changeBgPCR{
     0%,100%  {background-image: url('https://i.imgur.com/VzeQyFZ.png');}
@@ -133,7 +133,7 @@ Animation classes
 
 Pacman moving and triggering the ```checkCells()`` function on every move:
 
-```
+```js
 //MOVING DOWN
   if (key === 'ArrowDown' && !(pacman > (width ** 2) - width - 1)) {
     cells[pacman].classList.remove('pacman_left')
@@ -211,7 +211,7 @@ Pacman moving and triggering the ```checkCells()`` function on every move:
 I found that if I relied only on Pacman himself to check if he encounters a Ghost he would sometimes 'survive' if a Ghost runs into him when he stands still.
 Therefore the Ghosts have their own specialised function to check if they encounter Pacman:
 
-```
+```js
 
 //FUNCTION FOR GHOSTS TO CHECK IF THEY ENCOUNTER PACKMAN
 function checkCellsGhosts() {
@@ -243,7 +243,7 @@ The randomly moving Ghosts are simply on intervals (each with a slightly differe
 
 In both cases the function returns and gets triggered again. As the Ghosts are on fairly short intervals the resulting movement is fairly fast. Once the Ghost has moved the ```checkCellsGhost`` function above gets triggered, and if there are no resulting lost lives or game over the movement then gets triggered again. 
 
-```
+```js
 // MOVING GHOST 2 = BLUE ====================================================================================
 
 let isPlaying2 
@@ -333,7 +333,7 @@ function moveGhosts2() {
 The smart movement approach for the Red Ghost is a little more extensive.
 To begin with, he has an additional function checking what directions he can currently move in:
 
-```
+```js
 //FUNCTION TO CHECK WHAT DIRECTIONS A GHOST CAN MOVE IN 
 let moveRight
 let moveLeft
@@ -391,7 +391,7 @@ His movement function is below and explained here in steps.
 
 The problem with this approach is that it works great both for generally closing in on Pacman and on straight stretches, but not as well around corners. I ended up writing some additional if-else statements to help the Ghost in case of corners and managed to improve him dealing with it. The full code is below.
 
-```
+```js
 // MOVING GHOST 1 = RED ====================================================================================
 
 let isPlaying 
