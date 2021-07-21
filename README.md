@@ -558,11 +558,15 @@ function moveGhosts() {
 
 ### Start Screen
 
-![ Pacman Start Screen ](.readme_files/pacman_startscreen.png)
+<p>
+<img src=".readme_files/pacman_startscreen.png"alt="Pacman Start Screen"/>
+</p>
 
 ### Game Screen
 
-![ Entity Relationship Diagram ](.readme_files/pacman_gamescreen.png)
+<p>
+<img src=".readme_files/pacman_gamescreen.png"alt="Pacman Game Screen"/>
+</p>
 
 ## Wins, Challenges & Bugs
 
