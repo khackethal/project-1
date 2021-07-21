@@ -61,8 +61,9 @@ Having not planned an app before, I found it easiest for this first one to write
 
 Here is a digital recreation of my wall at the time...
 
-![ Planning Wall](.readme_files/pacmanwall.png)
-
+<p>
+<img src=".readme_files/pacmanwall.png"alt="Planning wall"/>
+</p>
 
 
 ## Project Details
